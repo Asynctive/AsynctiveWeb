@@ -1,0 +1,3 @@
+.settings/*
+.project
+application/config/database.php
