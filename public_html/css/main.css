@@ -49,6 +49,14 @@
 	border-radius: 25px 0 25px 25px;
 }
 
+@media (min-width: 768px) and (max-width: 992px)
+{
+	#header-image
+	{
+		margin-top: 26px;
+	}
+}
+
 #mobile-nav-box
 {
 	background-color: #000000;

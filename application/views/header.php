@@ -23,7 +23,7 @@
 			<div class="container" style="margin-top: 5px">
 				<div class="row">
 					<div class="col-xs-12 col-sm-4 col-md-5 col-lg-6">
-						<img class="img-responsive" src="/images/header_logo.png" alt="Asynctive">
+						<img id="header-image" class="img-responsive" src="/images/header_logo.png" alt="Asynctive">
 					</div>
 					
 					<!-- Hidden on mobile -->
