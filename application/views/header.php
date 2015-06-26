@@ -8,6 +8,9 @@
 		
 		<link rel="stylesheet" href="/css/main.css">
 		
+		<!-- Fonts -->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
+		
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -60,4 +63,9 @@
 			</div>
 		</nav>
 		
+		<!-- Empty container so the content-box doesn't overlap in mobile -->
+		<div class="container"></div>
 		
+		<div id="content-box" class="container black-box">
+			<main role="main">
+				

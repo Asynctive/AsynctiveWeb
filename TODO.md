@@ -1,5 +1,4 @@
 # TODO
-+   Content pane
 +   Style changes
 +   Static pages
 +   Members
