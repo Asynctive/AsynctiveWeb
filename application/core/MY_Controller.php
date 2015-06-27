@@ -19,12 +19,4 @@ class MY_Controller extends CI_Controller
 		$this->load->view($path, $this->DATA);
 		$this->load->view('footer.php', $this->DATA);
 	}
-	
-	/**
-	 * @return string
-	 */
-	public function getPage()
-	{
-		return $this->PAGE;
-	}
 }
