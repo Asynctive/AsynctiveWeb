@@ -1,3 +1,7 @@
+<?php 
+	$home = ($page == 'home');
+	$contact = ($page == 'contact');
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -6,7 +10,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="">
 		
-		<link rel="stylesheet" href="/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+		<?php if($contact): ?><link rel="stylesheet" type="text/css" href="/css/contact.css">
+		<script type="text/javascript" src="/js/contact.js"></script>
+		<?php endif; ?> 
 		
 		<!-- Fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
@@ -17,7 +24,9 @@
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	</head>
 	
-	<body>
+	<?php if($home): ?><body>
+	<?php elseif($contact): ?><body onload="setEmailFields()">
+	<?php endif; ?>
 
 		<header>
 			<div class="container" style="margin-top: 5px">

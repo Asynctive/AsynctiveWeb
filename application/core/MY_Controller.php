@@ -5,10 +5,26 @@
  */
 class MY_Controller extends CI_Controller
 {
-	public function render($page = '', $data = array())
+	protected $DATA = array();
+	
+	public function __construct($page)
 	{
-		$this->load->view('header.php', $data);
-		$this->load->view($page, $data);
-		$this->load->view('footer.php', $data);
+		parent::__construct();
+		$this->DATA['page'] = $page;
+	}
+
+	public function render($path = '')
+	{		
+		$this->load->view('header.php', $this->DATA);
+		$this->load->view($path, $this->DATA);
+		$this->load->view('footer.php', $this->DATA);
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getPage()
+	{
+		return $this->PAGE;
 	}
 }

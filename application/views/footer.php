@@ -14,8 +14,8 @@
 							<nav>
 								<ul class="footer-nav">
 									<li><a href="/about">About</a></li>
-									<li><a href="/source">Source</a></li>
-									<li><a href="#" class="no-link">Careers</a></li>
+									<li><a href="https://github.com/Asynctive/AsynctiveWeb" target="_blank">Source</a></li>
+									<li><span class="no-link">Careers</span></li>
 									<li><a href="/contact">Contact</a></li>
 								</ul>
 							</nav>
@@ -31,8 +31,8 @@
 			<nav>
 				<ul class="footer-nav">
 					<li><a href="/about">About</a></li>
-					<li><a href="/source">Source</a></li>
-					<li><a href="#" class="no-link">Careers</a></li>
+					<li><a href="https://github.com/Asynctive/AsynctiveWeb" target="_blank">Source</a></li>
+					<li><span class="no-link">Careers</span></li>
 					<li><a href="/contact">Contact</a></li>
 				</ul>
 			</nav>

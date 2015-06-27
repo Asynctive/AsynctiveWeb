@@ -1,0 +1,24 @@
+/* Asynctive Contact CSS */
+
+.contact-table
+{
+	display: table;
+}
+
+.contact-row
+{
+	display: table-row;
+}
+
+.contact-cell
+{
+	display: table-cell;
+	padding-bottom: 3px;
+}
+
+.name-field
+{
+	font-weight: bold;
+	padding-right: 20px;
+	text-align: right;
+}

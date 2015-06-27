@@ -5,9 +5,13 @@
  */
 class Home extends MY_Controller
 {
+	public function __construct()
+	{
+		parent::__construct('home');
+	}
+		
 	public function index()
 	{
-		$data['page'] = 'home';
-		$this->render('pages/home.php', $data);
+		$this->render('pages/home.php');
 	}
 }
