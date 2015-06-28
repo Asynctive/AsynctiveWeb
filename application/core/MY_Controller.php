@@ -14,7 +14,10 @@ class MY_Controller extends CI_Controller
 	}
 
 	public function render($path = '')
-	{		
+	{
+		if (!file_exists(APPPATH . '/views/' . $path))
+			show_404();
+		
 		$this->load->view('header.php', $this->DATA);
 		$this->load->view($path, $this->DATA);
 		$this->load->view('footer.php', $this->DATA);
