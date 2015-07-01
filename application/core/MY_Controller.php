@@ -11,6 +11,10 @@ class MY_Controller extends CI_Controller
 	{
 		parent::__construct();
 		$this->DATA['page'] = $page;
+		
+		$this->DATA['title'] = 'Asynctive';
+		if ($page !== 'home')
+			$this->DATA['title'] .= ' | ' . ucfirst($page); 
 	}
 
 	public function render($path = '')

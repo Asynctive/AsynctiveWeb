@@ -1,80 +1,121 @@
-<?php 
-	$home = ($page == 'home');
-	$contact = ($page == 'contact');
+<?php
+	// Store checks for less repetitive code
+	$isHome = ($page == 'home');
+	$isContact = ($page == 'contact');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Asynctive | <?php echo ucfirst($page); ?></title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
 		
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-		<?php if($contact): ?><link rel="stylesheet" type="text/css" href="/css/contact.css">
+		<title><?php echo $title ?></title>
+		<meta name="description" content="An upcoming software development organization">
+		
+		<link rel="stylesheet" type="text/css" href="/css/common.css">
+		<?php if($isContact):?>
+		<link rel="stylesheet" type="text/css" href="/css/contact.css">
 		<script type="text/javascript" src="/js/contact.js"></script>
-		<?php endif; ?> 
+		<?php endif; ?>
 		
 		<!-- Fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:700' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Nunito:700' rel='stylesheet' type='text/css'>
+		
+		<!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		
 		<!-- Bootstrap -->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 	</head>
 	
-	<?php if($home): ?><body>
-	<?php elseif($contact): ?><body onload="setEmailFields()">
-	<?php endif; ?>
-
-		<header>
-			<div class="container" style="margin-top: 5px">
-				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-5 col-lg-6">
-						<img id="header-image" class="img-responsive" src="/images/header_logo.png" alt="Asynctive">
+	<?php
+		// Don't want to stick a bunch of code into the body tag for event handlers
+		$onload = '';
+		if ($isContact)
+			$onload = ' onload="setEmailFields()"';
+	?>
+	<body<?php echo $onload; ?>>
+		
+		<div id="top-bar" class="container">
+		<?php if (!isset($logged_in)): ?>
+			<div id="login-box" class="hidden-xs">
+				<form role="form" class="form-inline" method="POST">
+					<div class="form-group">
+						<label for="login-username">Username:</label>
+						<input id="login-username" name="login-username" type="text" class="form-control input-sm">
 					</div>
 					
-					<!-- Hidden on mobile -->
-					<div class="hidden-xs">
-						<div class="col-sm-2 col-md-2" style="padding-right: 0">
-							<img src="/images/header_curve.png" alt="" style="float: right">
+					<div class="form-group" style="margin-left: 1em">
+						<label for="login-password">Password:</label>
+						<input id="login-password" name="login-password" type="password" class="form-control input-sm">
+					</div>
+					
+					<button type="submit" class="btn btn-default" style="margin-left: 5px">Login</button>
+					<a href="/signup">Sign Up</a>
+				</form>
+			</div>
+			
+			<!-- Mobile login -->
+			<div id="login-box-mobile" class="visible-xs">
+				<form role="form" class="form-horizontal" method="POST">
+					<div class="form-group">
+						<label for="login-username-mobile" class="col-xs-3 control-label">Username</label>
+						<div class="col-xs-9">
+							<input id="login-username-mobile" type="text" name="login-username" class="form-control input-sm">
 						</div>
-						
-						<nav id="header-side" class="col-sm-6 col-md-5 col-lg-4 black-box">
-							<ul id="header-nav">
-								<li><a href="/">Home</a></li>
-								<li><a href="/products">Products</a></li>
-								<li><a href="/support">Support</a></li>
-								<li><a href="/login">Login</a></li>
-							</ul>
-						</nav>
 					</div>
-				</div>
+					
+					<div class="form-group">
+						<label for="login-password-mobile" class="col-xs-3 control-label">Password</label>
+						<div class="col-xs-9">
+							<input id="login-password-mobile" type="password" name="login-password" class="form-control input-sm">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-xs-offset-3 col-xs-9">
+							<button type="submit" class="btn btn-default">Login</button>
+							<a href="/signup" style="margin-left: 5px">Sign Up</a>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+		<?php else: ?>
+			<!-- TODO: User bar -->
+		<?php endif; ?>
+		</div>
+
+		<div id="main-wrapper" class="container">
+			<div class="row">
+				<header role="banner">
+					<div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
+						<img id="header-logo" class="img-responsive" src="/images/header_logo.png" alt="">
+					</div>
+					
+					<div class="col-sm-2 hidden-xs" style="padding-right: 0">
+						<img src="/images/header_curve.png" alt="" style="float: right">
+					</div>
+				</header>
 				
-				<div class="row">
-					<div id="header-bottom" class="col-xs-12 black-box hidden-xs">
-					</div>
-				</div>
+				<nav id="main-nav" class="col-xs-12 col-sm-5 col-md-5 col-lg-4 black-box">
+					<ul class="list-inline">
+						<li><a class="nav-link" href="/">Home</a></li>
+						<li><a class="nav-link" href="/software">Software</a></li>
+						<li><a class="nav-link" href="/code">Code</a></li>
+						<li><a class="nav-link" href="/support">Support</a></li>
+					</ul>
+				</nav>
 				
 			</div>
-		</header>
-		
-		<!-- Mobile nav -->
-		<nav id="mobile-nav-box" class="navbar navbar-default navbar-toggle">
-			<div class="container">
-				<ul class="nav mobile-nav">
-					<li><a href="/" style="border-top: 0">Home</a></li>
-					<li><a href="/products">Products</a></li>
-					<li><a href="/support">Support</a></li>
-					<li><a href="/login">Login</a></li>
-				</ul>
+			
+			<div class="row">
+				<div id="nav-bottom-bar" class="col-sm-12 black-box hidden-xs"></div>
 			</div>
-		</nav>
-		
-		<!-- Empty container so the content-box doesn't overlap in mobile -->
-		<div class="container"></div>
-		
-		<div id="content-box" class="container black-box">
-			<main role="main">
-				
+			
+			<div class="row">
+				<div id="content-box" class="col-xs-12 black-box">
+					<main role="main">
+					

@@ -1,4 +1,4 @@
-<p class="title">Contact</p>
+<h3>Contact</h3>
 
 <div class="contact-table">
 	<div class="contact-row">

@@ -1,0 +1,203 @@
+/* Asynctive Common Stylesheet */
+
+/* Extra small screens */
+@media (max-width: 767px)
+{	
+	div #main-nav
+	{
+		border-radius: 25px;
+		height: auto;
+		padding: 10px;
+		line-height: 1em;
+		text-align: center;
+	}
+	
+	div #main-nav ul
+	{
+		padding: 5px 0 5px 0;
+		margin: 0;
+	}
+
+	div #main-nav a
+	{
+		font-size: 1em;
+		margin-right: 0;
+	}
+	
+	div #content-box
+	{
+		padding: 30px;
+	}
+	
+	#content-box main
+	{
+		width: 100%;
+		border: 0;
+		padding: 0;
+	}
+	
+	div footer
+	{
+		border-radius: 25px;
+		margin-top: 15px;
+		text-align: center;
+		padding-top: 5px;
+	}
+	
+	/* Copyright div */
+	#main-wrapper .row:last-child div
+	{
+		background-color: #ffffff;
+		margin-top: -15px;
+		color: #000000;
+	}
+}
+
+/* Small screens */
+@media (min-width: 768px) and (max-width: 992px)
+{	
+	/* Perch the crow on the black bar */
+	#header-logo
+	{
+		margin-top: 14px;		/* It resizes to 58px, so 71 - 58 = 13 + 1 pixel offset */
+	}
+	
+	div #main-nav a
+	{
+		font-size: 1.14em;
+	}
+	
+	div #content-box
+	{
+		padding: 40px 10px;
+	}
+}
+
+.black-box
+{
+	background-color: #000000;
+	color: #aaaaaa;
+}
+
+.nav-link
+{
+	font-family: 'Nunito', sans-serif;
+	font-weight: bold;
+	color: #ffffff;
+	padding: 5px;
+}
+
+.nav-link:hover
+{
+	color: #000000;
+	background-color: #ffffff;
+	text-decoration: none;
+	border-radius: 5px;
+}
+
+.footer-box
+{
+	height: 35px;
+	margin-bottom: 15px;
+}
+
+.no-link
+{
+	text-decoration: line-through;
+}
+
+#login-box
+{
+	text-align: right;
+}
+
+#top-bar
+{
+	padding: 10px;
+}
+
+#nav-bottom-bar
+{
+	height: 20px;
+	border-radius: 25px 0 25px 25px;
+}
+
+#footer-bottom-bar
+{
+	height: 20px;
+	border-radius: 25px 25px 25px 0;
+	margin-top: 15px;
+}
+
+#main-wrapper
+{
+	margin-top: 1.2em;
+}
+
+#main-nav
+{
+	border-radius: 0 25px 0 0;
+	height: 71px;
+	margin: 0;
+	padding: 0;
+	line-height: 100px;
+	vertical-align: bottom;
+}
+
+#main-nav li
+{
+	padding: 0;
+}
+
+#main-nav a
+{
+	font-size: 1.42em;
+	margin-right: 5px;
+}
+
+#content-box
+{
+	border-radius: 25px;
+	min-height: 400px;
+	margin-top: 15px;
+	padding: 50px;
+}
+
+main
+{
+	width: 80%;
+	border-left: solid 2px #555555;
+	border-right: solid 2px #555555;
+	border-radius: 25px;
+	min-height: inherit;
+	padding: 25px 50px;
+	word-wrap: break-word;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+main h3
+{
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+footer
+{
+	border-radius: 0 0px 0px 25px;
+}
+
+footer ul
+{
+	display: inline;
+}
+
+div small
+{
+	font-size: 0.71em;
+}
+
+footer li
+{
+	font-size: 0.85em;
+}
