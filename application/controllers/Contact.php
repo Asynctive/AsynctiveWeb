@@ -3,7 +3,7 @@
  * Asynctive Web Contact Page Controller
  * @author Andy Deveaux
  */
-class Contact extends MY_Controller
+class Contact extends AS_Controller
 {
 	public function __construct()
 	{

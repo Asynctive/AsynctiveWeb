@@ -8,12 +8,26 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 -- -------------------------------------
 -- User related
 -- -------------------------------------
-DROP TABLE IF EXISTS `privileges`;
-CREATE TABLE `privileges`(
-	`id` INT NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL,
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE `roles`(
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `model` VARCHAR(50) NOT NULL COMMENT 'Associated model class',
     PRIMARY KEY(`id`),
     UNIQUE(`name`)
+) ENGINE=InnoDB;
+
+
+DROP TABLE IF EXISTS `role_user_associations`(
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `role_id` INT UNSIGNED NOT NULL,
+    `user_id` BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY(`id`),
+    INDEX `role_type_id_idx` (`role_id` ASC),
+    INDEX `role_user_id_idx` (`user_id` ASC),
+    CONSTRAINT `fk_role_assoc_role_id` FOREIGN KEY(`role_id`) REFERENCES `roles`(`id`)
+    ON DELETE CASCADE,
+    CONSTRAINT `fk_role_assoc_user_id` FOREIGN KEY(`user_id`) REFERENCES `users`(`id`)
+    ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 
@@ -22,7 +36,10 @@ CREATE TABLE `users`(
 	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(200) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
+    `first_name` VARCHAR(200) NOT NULL,
+    `last_name` VARCHAR(200) NOT NULL,
     `email` VARCHAR(256) NOT NULL,
+    `email_verified` BOOL NOT NULL DEFAULT '0',
     `created` INT(11) UNSIGNED NOT NULL,
     `updated` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
@@ -30,18 +47,14 @@ CREATE TABLE `users`(
 ) ENGINE=InnoDB;
 
 
-DROP TABLE IF EXISTS `privilege_associations`;
-CREATE TABLE `privilege_associations`(
-	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `pending_email_verifications`;
+CREATE TABLE `pending_email_verifications`(
+	`id` CHAR(36) NOT NULL AUTO_INCREMENT,
     `user_id` BIGINT UNSIGNED NOT NULL,
-    `privilege_id` INT NOT NULL,
-    PRIMARY KEY(`id`),
-    INDEX `privilege_user_id_idx` (`user_id` ASC),
-    INDEX `privilege_type_id_idx` (`privilege_id` ASC),
-    CONSTRAINT `fk_privilege_assoc_user_id` FOREIGN KEY(`user_id`) REFERENCES `users`(`id`)
-    ON DELETE CASCADE,
-    CONSTRAINT `fk_privilege_assoc_privilege_id` FOREIGN KEY(`privilege_id`) REFERENCES `privileges`(`id`)
-    ON DELETE CASCADE
+    PRIMARY KEY (`id`),
+    INDEX `pending_email_user_id_idx` (`user_id` ASC),
+    CONSTRAINT `fk_pending_email_user_id` FOREIGN KEY(`user_id`) REFERENCES `users`(`id`)
+	ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 
@@ -62,35 +75,6 @@ CREATE TABLE `pw_resets`(
 -- -------------------------------------
 -- News related
 -- -------------------------------------
-DROP TABLE IF EXISTS `news_categories`;
-CREATE TABLE `news_categories`(
-	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(150) NOT NULL,
-    `slug` VARCHAR(150) NOT NULL,
-    PRIMARY KEY(`id`),
-    CONSTRAINT `uc_news_category_id` UNIQUE(`name`, `slug`)
-) ENGINE=InnoDB;
-
-
-DROP TABLE IF EXISTS `news_articles`;
-CREATE TABLE `news_articles`(
-	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `user_id` BIGINT UNSIGNED NOT NULL,
-    `category_id` INT UNSIGNED NOT NULL,
-    `title` VARCHAR(250) NOT NULL,
-    `content` TEXT,
-    `created` INT(11) UNSIGNED NOT NULL,
-    `updated` INT(11) UNSIGNED NOT NULL,
-    PRIMARY KEY(`id`),
-    INDEX `news_article_user_id_idx` (`user_id` ASC),
-    INDEX `news_article_category_id_dx` (`category_id` ASC),
-    CONSTRAINT `fk_news_article_user_id` FOREIGN KEY(`user_id`) REFERENCES `users`(`id`)
-    ON DELETE CASCADE,
-    CONSTRAINT `fk_news_article_category_id` FOREIGN KEY(`category_id`) REFERENCES `news_categories`(`id`)
-    ON DELETE CASCADE
-) ENGINE=InnoDB;
-
-
 DROP TABLE IF EXISTS `news_categories`;
 CREATE TABLE `news_categories`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,

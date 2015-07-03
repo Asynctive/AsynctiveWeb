@@ -2,6 +2,7 @@
 	// Store checks for less repetitive code
 	$isHome = ($page == 'home');
 	$isContact = ($page == 'contact');
+	$isSignup = ($page == 'sign_up');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,21 +14,27 @@
 		<title><?php echo $title ?></title>
 		<meta name="description" content="An upcoming software development organization">
 		
-		<link rel="stylesheet" type="text/css" href="/css/common.css">
-		<?php if($isContact):?>
-		<link rel="stylesheet" type="text/css" href="/css/contact.css">
-		<script type="text/javascript" src="/js/contact.js"></script>
+		<!-- jQuery -->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<?php if($isSignup): ?>
+		<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 		<?php endif; ?>
 		
 		<!-- Fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Nunito:700' rel='stylesheet' type='text/css'>
 		
-		<!-- jQuery -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		
 		<!-- Bootstrap -->
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="/css/common.css">
+		<?php if($isContact): ?>
+		<link rel="stylesheet" type="text/css" href="/css/contact.css">
+		<script type="text/javascript" src="/js/contact.js"></script>
+		<?php elseif($isSignup): ?>
+		<link rel="stylesheet" type="text/css" href="/css/sign_up.css">
+		<script type="text/javascript" src="/js/sign_up.js"></script>
+		<?php endif; ?>
 	</head>
 	
 	<?php
@@ -39,7 +46,7 @@
 	<body<?php echo $onload; ?>>
 		
 		<div id="top-bar" class="container">
-		<?php if (!isset($logged_in)): ?>
+		<?php if (!isset($logged_in) && !$isSignup): ?>
 			<div id="login-box" class="hidden-xs">
 				<form role="form" class="form-inline" method="POST">
 					<div class="form-group">
@@ -53,7 +60,7 @@
 					</div>
 					
 					<button type="submit" class="btn btn-default" style="margin-left: 5px">Login</button>
-					<a href="/signup">Sign Up</a>
+					<a href="/sign_up">Sign Up</a>
 				</form>
 			</div>
 			

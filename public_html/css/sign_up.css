@@ -1,0 +1,91 @@
+/* Asynctive Sign Up Page Stylesheet */
+
+/* Extra small screens */
+@media (max-width: 767px)
+{
+	.form-group #signup-first-name
+	{
+		width: 60%;
+	}
+	
+	.form-group #signup-last-name
+	{
+		width: 60%;
+	}
+	
+	.form-group #signup-username
+	{
+		width: 65%;
+	}
+	
+	.form-group #signup-email
+	{
+		width: 90%;
+	}
+	
+	.form-group #signup-password
+	{
+		width: 50%;
+	}
+	
+	.form-group #signup-password-confirm
+	{
+		width: 50%;
+	}
+}
+
+main label
+{
+	display: block;
+}
+
+main form legend
+{
+	border: 0;
+	font-size: 1.14em;
+	font-style: italic;
+	color: #999999;
+}
+
+input.error
+{
+	display: inline-block;
+}
+
+label.error
+{
+	display: inline-block;
+	color: #ff0000;
+	margin-left: 20px;
+	font-weight: normal;
+}
+
+#signup-first-name
+{
+	width: 300px;
+}
+
+#signup-last-name
+{
+	width: 300px;
+}
+
+#signup-username
+{
+	width: 300px;
+}
+
+#signup-email
+{
+	width: 450px;
+}
+
+#signup-password
+{
+	width: 200px;
+}
+
+#signup-password-confirm
+{
+	width: 200px;
+}

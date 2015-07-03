@@ -3,7 +3,7 @@
  * Asynctive Web Home Page Controller
  * @author Andy Deveaux
  */
-class Home extends MY_Controller
+class Home extends AS_Controller
 {
 	public function __construct()
 	{

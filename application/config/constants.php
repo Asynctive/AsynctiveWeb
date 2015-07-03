@@ -84,3 +84,33 @@ define('EXIT_USER_INPUT', 7); // invalid user input
 define('EXIT_DATABASE', 8); // database error
 define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+
+/*
+|--------------------------------------------------------------------------
+| Asynctive Permissions Constants
+|--------------------------------------------------------------------------
+| 
+| Used to store all permissions within a role model.
+|
+*/
+define('PERMISSION_LOGIN', 0);					// Excluded in 'Banned' class
+define('PERMISSION_CREATE_NEWS_CATEGORY', 1);
+define('PERMISSION_EDIT_NEWS_CATEGORY', 2);
+define('PERMISSION_DELETE_NEWS_CATEGORY', 3);
+define('PERMISSION_CREATE_NEWS_ARTICLE', 4);
+define('PERMISSION_EDIT_NEWS_ARTICLE', 5);
+define('PERMISSION_DELETE_NEWS_ARTICLE', 6);
+define('PERMISSION_CREATE_PRODUCT_CATEGORY', 7);
+define('PERMISSION_EDIT_PRODUCT_CATEGORY', 8);
+define('PERMISSION_DELETE_PRODUCT_CATEGORY', 9);
+define('PERMISSION_CREATE_PRODUCT', 10);
+define('PERMISSION_EDIT_PRODUCT', 11);
+define('PERMISSION_DELETE_PRODUCT', 12);
+define('PERMISSION_ADD_TO_CART', 13);
+define('PERMISSION_CHECKOUT', 14);
+define('PERMISSION_VIEW_ADMIN_PANEL', 15);
+define('PERMISSION_VIEW_USER_LIST', 16);
+define('PERMISSION_EDIT_USER', 17);
+define('PERMISSION_DELETE_USER', 18);
+define('PERMISSION_CHANGE_USER_CATEGORIES', 19);
