@@ -13,11 +13,12 @@ CREATE TABLE `roles`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `model` VARCHAR(50) NOT NULL COMMENT 'Associated model class',
     PRIMARY KEY(`id`),
-    UNIQUE(`name`)
+    UNIQUE(`model`)
 ) ENGINE=InnoDB;
 
 
-DROP TABLE IF EXISTS `role_user_associations`(
+DROP TABLE IF EXISTS `role_user_associations`;
+CREATE TABLE `role_user_associations`(
 	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `role_id` INT UNSIGNED NOT NULL,
     `user_id` BIGINT UNSIGNED NOT NULL,
@@ -36,10 +37,10 @@ CREATE TABLE `users`(
 	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(200) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
-    `first_name` VARCHAR(200) NOT NULL,
-    `last_name` VARCHAR(200) NOT NULL,
+    `first_name` VARCHAR(200),
+    `last_name` VARCHAR(200),
     `email` VARCHAR(256) NOT NULL,
-    `email_verified` BOOL NOT NULL DEFAULT '0',
+    `email_verified` BOOL NOT NULL DEFAULT '0' COMMENT 'Easy way to check without using another query',
     `created` INT(11) UNSIGNED NOT NULL,
     `updated` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
@@ -99,9 +100,8 @@ CREATE TABLE `news_articles` (
     `updated` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `news_article_user_id_idx` (`user_id` ASC),
-    INDEX `news_article_category_id_dx` (`category_id` ASC),
     CONSTRAINT `fk_news_article_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-        ON DELETE CASCADE
+	ON DELETE CASCADE
 )  ENGINE=INNODB;
 
 
@@ -175,7 +175,7 @@ CREATE TABLE `open_source_software`(
     `license` VARCHAR(100),
     `repository_url` VARCHAR(300),
     PRIMARY KEY(`id`),
-    INDEX (`open_source_software_software_id_idx` (`software_id` ASC),
+    INDEX `open_source_software_software_id_idx` (`software_id` ASC),
     CONSTRAINT `fk_open_source_software_software_id` FOREIGN KEY (`software_id`) REFERENCES `software`(`id`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB;
