@@ -49,8 +49,10 @@ CREATE TABLE `users`(
 
 DROP TABLE IF EXISTS `pending_email_verifications`;
 CREATE TABLE `pending_email_verifications`(
-	`id` CHAR(36) NOT NULL AUTO_INCREMENT,
+	`id` CHAR(36) NOT NULL,
     `user_id` BIGINT UNSIGNED NOT NULL,
+    `code` CHAR(8) NOT NULL COMMENT 'Extra random generated data',
+    `created` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `pending_email_user_id_idx` (`user_id` ASC),
     CONSTRAINT `fk_pending_email_user_id` FOREIGN KEY(`user_id`) REFERENCES `users`(`id`)
@@ -60,9 +62,10 @@ CREATE TABLE `pending_email_verifications`(
 
 DROP TABLE IF EXISTS `pw_resets`;
 CREATE TABLE `pw_resets`(
-	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`id` CHAR(36) NOT NULL,
     `user_id` BIGINT UNSIGNED NOT NULL,
-    `data` VARCHAR(255) NOT NULL,
+    `code` CHAR(8) NOT NULL COMMENT 'Extra random generated data',
+    `remote_ip` VARCHAR(45) NOT NULL COMMENT 'Address of what sent the request',
     `created` INT(11) UNSIGNED NOT NULL,
     `expires` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
@@ -118,37 +121,62 @@ CREATE TABLE `news_category_associations`(
 
 
 -- -------------------------------------
--- Product related
+-- Software related
 -- -------------------------------------
-DROP TABLE IF EXISTS `product_categories`;
-CREATE TABLE `product_categories`(
+DROP TABLE IF EXISTS `software_categories`;
+CREATE TABLE `software_categories`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(150) NOT NULL UNIQUE,
     PRIMARY KEY(`id`)
 ) ENGINE=InnoDB;
 
 
-DROP TABLE IF EXISTS `products`;
-CREATE TABLE `products`(
+DROP TABLE IF EXISTS `software`;
+CREATE TABLE `software`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(200) NOT NULL UNIQUE,
     `desc` TEXT,
-    `price` DECIMAL(9,2) NOT NULL DEFAULT '0.00' COMMENT 'CAD',
     PRIMARY KEY(`id`)
 ) ENGINE=InnoDB;
 
 
-DROP TABLE IF EXISTS `product_category_associations`;
-CREATE TABLE `product_category_associations`(
+DROP TABLE IF EXISTS `software_category_associations`;
+CREATE TABLE `software_category_associations`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `product_id` INT UNSIGNED NOT NULL,
+    `software_id` INT UNSIGNED NOT NULL,
     `category_id` INT UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
-    INDEX `product_cat_assoc_product_id_idx` (`product_id` ASC),
-    INDEX `product_cat_assoc_category_id_idx` (`category_id` ASC),
-    CONSTRAINT `fk_product_cat_assoc_product_id` FOREIGN KEY (`product_id`) REFERENCES `products`(`id`)
+    INDEX `software_cat_assoc_product_id_idx` (`software_id` ASC),
+    INDEX `software_cat_assoc_category_id_idx` (`category_id` ASC),
+    CONSTRAINT `fk_software_cat_assoc_product_id` FOREIGN KEY (`software_id`) REFERENCES `software`(`id`)
     ON DELETE CASCADE,
-    CONSTRAINT `fk_product_cat_assoc_category_id` FOREIGN KEY (`category_id`) REFERENCES `product_categories`(`id`)
+    CONSTRAINT `fk_software_cat_assoc_category_id` FOREIGN KEY (`category_id`) REFERENCES `software_categories`(`id`)
+    ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+
+DROP TABLE IF EXISTS `commercial_software`;
+CREATE TABLE `commercial_software`(
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `software_id` INT UNSIGNED NOT NULL UNIQUE,
+    `price` DECIMAL(10,2) NOT NULL COMMENT 'CAD',
+    PRIMARY KEY(`id`),
+    INDEX `commercial_software_software_id_idx` (`software_id` ASC),
+    CONSTRAINT `fk_commercial_software_software_id` FOREIGN KEY (`software_id`) REFERENCES `software`(`id`)
+    ON DELETE CASCADE,
+    CHECK (`price`>0.00)
+) ENGINE=InnoDB;
+
+
+DROP TABLE IF EXISTS `open_source_software`;
+CREATE TABLE `open_source_software`(
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `software_id` INT UNSIGNED NOT NULL UNIQUE,
+    `license` VARCHAR(100),
+    `repository_url` VARCHAR(300),
+    PRIMARY KEY(`id`),
+    INDEX (`open_source_software_software_id_idx` (`software_id` ASC),
+    CONSTRAINT `fk_open_source_software_software_id` FOREIGN KEY (`software_id`) REFERENCES `software`(`id`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
