@@ -86,12 +86,22 @@ define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 
+
+/*
+|--------------------------------------------------------------------------
+| Asynctive Table Names
+|--------------------------------------------------------------------------
+*/
+define('TABLE_USERS', 'users');
+define('TABLE_ROLES', 'roles');
+define('TABLE_USER_ROLE_ASSOC', 'user_role_associations');
+
 /*
 |--------------------------------------------------------------------------
 | Asynctive Permissions Constants
 |--------------------------------------------------------------------------
 | 
-| Used to store all permissions within a role model.
+| Used to store all permissions within a role
 |
 */
 define('PERMISSION_LOGIN', 0);					// Excluded in 'Banned' class
@@ -113,4 +123,8 @@ define('PERMISSION_VIEW_ADMIN_PANEL', 15);
 define('PERMISSION_VIEW_USER_LIST', 16);
 define('PERMISSION_EDIT_USER', 17);
 define('PERMISSION_DELETE_USER', 18);
-define('PERMISSION_CHANGE_USER_CATEGORIES', 19);
+define('PERMISSION_CREATE_ROLE', 19);
+define('PERMISSION_EDIT_ROLE', 20);
+define('PERMISSION_DELETE_ROLE', 21);
+define('PERMISSION_CHANGE_USER_ROLE', 22);
+define('PERMISSION_BAN_USER', 23);

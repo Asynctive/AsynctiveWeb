@@ -3,7 +3,7 @@
  * Asynctive Web Contact Page Controller
  * @author Andy Deveaux
  */
-class Contact extends AS_Controller
+class Contact extends Site_Controller
 {
 	public function __construct()
 	{
@@ -12,6 +12,6 @@ class Contact extends AS_Controller
 	
 	public function index()
 	{
-		$this->render('pages/contact.php');
+		$this->_render('pages/contact.php');
 	}
 }

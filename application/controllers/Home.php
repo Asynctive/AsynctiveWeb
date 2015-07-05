@@ -3,7 +3,7 @@
  * Asynctive Web Home Page Controller
  * @author Andy Deveaux
  */
-class Home extends AS_Controller
+class Home extends Site_Controller
 {
 	public function __construct()
 	{
@@ -12,6 +12,6 @@ class Home extends AS_Controller
 		
 	public function index()
 	{
-		$this->render('pages/home.php');
+		$this->_render('pages/home.php');
 	}
 }

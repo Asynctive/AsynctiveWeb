@@ -11,20 +11,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `model` VARCHAR(50) NOT NULL COMMENT 'Associated model class',
+    `name` VARCHAR(60) NOT NULL,
+    `key` VARCHAR(50) NOT NULL COMMENT 'Associated array key name',
     PRIMARY KEY(`id`),
-    UNIQUE(`model`)
+    UNIQUE(`name`)
 ) ENGINE=InnoDB;
 
 
-DROP TABLE IF EXISTS `role_user_associations`;
-CREATE TABLE `role_user_associations`(
+DROP TABLE IF EXISTS `user_role_associations`;
+CREATE TABLE `user_role_associations`(
 	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `role_id` INT UNSIGNED NOT NULL,
     `user_id` BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY(`id`),
     INDEX `role_type_id_idx` (`role_id` ASC),
     INDEX `role_user_id_idx` (`user_id` ASC),
+    UNIQUE KEY `idx_user_roles`(`role_id`, `user_id`),
     CONSTRAINT `fk_role_assoc_role_id` FOREIGN KEY(`role_id`) REFERENCES `roles`(`id`)
     ON DELETE CASCADE,
     CONSTRAINT `fk_role_assoc_user_id` FOREIGN KEY(`user_id`) REFERENCES `users`(`id`)
@@ -35,16 +37,15 @@ CREATE TABLE `role_user_associations`(
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`(
 	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(200) NOT NULL,
+    `username` VARCHAR(200) NOT NULL UNIQUE,
     `password` VARCHAR(255) NOT NULL,
     `first_name` VARCHAR(200),
     `last_name` VARCHAR(200),
-    `email` VARCHAR(256) NOT NULL,
+    `email` VARCHAR(256) NOT NULL UNIQUE,
     `email_verified` BOOL NOT NULL DEFAULT '0' COMMENT 'Easy way to check without using another query',
     `created` INT(11) UNSIGNED NOT NULL,
     `updated` INT(11) UNSIGNED NOT NULL,
-    PRIMARY KEY(`id`),
-    CONSTRAINT `uc_user_id` UNIQUE(`username`, `email`)
+    PRIMARY KEY(`id`)
 ) ENGINE=InnoDB;
 
 
@@ -82,11 +83,10 @@ CREATE TABLE `pw_resets`(
 DROP TABLE IF EXISTS `news_categories`;
 CREATE TABLE `news_categories`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(150) NOT NULL,
-    `slug` VARCHAR(150) NOT NULL,
+    `name` VARCHAR(150) NOT NULL UNIQUE,
+    `slug` VARCHAR(150) NOT NULL UNIQUE,
     PRIMARY KEY(`id`),
     INDEX `news_categories_slug_idx` (`slug` ASC),
-    CONSTRAINT `uc_news_category_id` UNIQUE(`name`, `slug`)
 ) ENGINE=InnoDB;
 
 
