@@ -16,7 +16,7 @@ set $config['encryption_key']
 
 Asynctive Web specific settings are located in asynctive_config.php
 
-Visiting <website\_url>/setup will give you a setup page. If the ENVIRONMENT variable in public\_html/index.php 
+Visiting {website\_url}/setup will give you a setup page. If the ENVIRONMENT variable in public\_html/index.php 
 is set to 'production' then the website will be inaccessible until the page is completed. It will then delete itself 
 when done.
 
