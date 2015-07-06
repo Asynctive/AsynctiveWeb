@@ -46,7 +46,7 @@
 	<body<?php echo $onload; ?>>
 		
 		<div id="top-bar" class="container">
-		<?php if (!isset($logged_in) && !$isSignup): ?>
+		<?php if (!isset($logged_in) && (!$isSignup || isset($registration_successful)) ): ?>
 			<div id="login-box" class="hidden-xs">
 				<form role="form" class="form-inline" method="POST">
 					<div class="form-group">
@@ -62,6 +62,7 @@
 					<button type="submit" class="btn btn-default" style="margin-left: 5px">Login</button>
 					<a href="/sign_up">Sign Up</a>
 				</form>
+				<a href="/pwreset" style="font-size: 0.85em">Forgot Password?</a>
 			</div>
 			
 			<!-- Mobile login -->
@@ -84,7 +85,11 @@
 					<div class="form-group">
 						<div class="col-xs-offset-3 col-xs-9">
 							<button type="submit" class="btn btn-default">Login</button>
-							<a href="/signup" style="margin-left: 5px">Sign Up</a>
+							<a href="/sign_up" style="margin-left: 5px">Sign Up</a>
+						</div>
+						
+						<div class="col-xs-offset-3 col-xs-9" style="padding-top: 10px">
+							<a href="/pwreset">Forgot Password?</a>
 						</div>
 					</div>
 				</form>

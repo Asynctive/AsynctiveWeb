@@ -68,4 +68,14 @@ class User_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+	
+	/**
+	 * Updates a user by their id
+	 * @param int
+	 * @param array
+	 */
+	public function updateUserById($id, $data)
+	{
+		$this->db->update(TABLE_USERS, $data, array('id' => $id));
+	}
 }

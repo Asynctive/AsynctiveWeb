@@ -7,6 +7,8 @@ class User_Role_Assoc_model extends CI_Model
 {
 	/**
 	 * Adds a user to a role
+	 * @param int
+	 * @param int
 	 * @return int
 	 */
 	public function addUserToRole($user_id, $role_id)
@@ -17,6 +19,7 @@ class User_Role_Assoc_model extends CI_Model
 	
 	/**
 	 * Check if anybody is in a role
+	 * @param int
 	 */
 	public function getRoleIsEmpty($role_id)
 	{
@@ -35,6 +38,8 @@ class User_Role_Assoc_model extends CI_Model
 	
 	/**
 	 * Removes a user from a role
+	 * @param int
+	 * @param int
 	 */
 	public function removeUserFromRole($user_id, $role_id)
 	{

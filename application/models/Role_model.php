@@ -22,7 +22,7 @@ class Role_model extends CI_Model
 	public function getByKeyName($key_name)
 	{
 		$query = $this->db->get_where(TABLE_ROLES, array('key_name' => $key_name), 1);
-		if ($query->num_rows == 0)
+		if ($query->num_rows() == 0)
 			return FALSE;
 		
 		return $query->row();

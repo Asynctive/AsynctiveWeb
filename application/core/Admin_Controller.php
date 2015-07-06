@@ -69,7 +69,7 @@ class Admin_Controller extends AS_Controller
 		array(
 			'field' => 'email',
 			'label' => 'E-mail',
-			'rules' => 'trim|required|valid_email'
+			'rules' => 'trim|required|valid_email|is_unique[users.email]'
 		),
 		
 		array(

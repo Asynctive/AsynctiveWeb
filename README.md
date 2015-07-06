@@ -22,7 +22,7 @@ when done.
 
 ## Reference Documentation
 ### Technologies
-+ [CodeIgniter](http://www.codeigniter.com/)
++ [CodeIgniter 3](http://www.codeigniter.com/)
 + [Bootstrap](http://getbootstrap.com/)
 + [jQuery](https://jquery.com/)
 + [jQuery Validation Plugin](http://jqueryvalidation.org/)
@@ -58,3 +58,9 @@ be the head coder(s). Constants can be reviewed in application/config/constants.
 	PERMISSION_EDIT_ROLE
 	PERMISSION_DELETE_ROLE
 	PERMISSION_BAN_USER
+	
+### Available Roles:
+	ROLE_SUPER_ADMIN
+	ROLE_ADMIN
+	ROLE_USER
+	ROLE_BANNED

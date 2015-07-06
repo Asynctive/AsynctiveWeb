@@ -14,7 +14,7 @@ class Site_Controller extends AS_Controller
 		$this->data['page'] = $page;
 		$this->_generateTitle($page);
 	}
-	
+		
 	/**
 	 * Renders a page
 	 * @param string

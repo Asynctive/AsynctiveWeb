@@ -16,7 +16,12 @@ $config['offline_mode'] = FALSE;
 
 /**
  * The site domain name address
- * Used for password resets and redirects because $_SERVER['SERVER_ADDR'] returns the IP
- * Don't forget to include 'http(s)://' unless you're using localhost
+ * Used for password resets and verification e-maisls because $_SERVER['SERVER_ADDR'] returns the IP
+ * Don't forget to include 'http(s)://'
  */
-$config['site_address'] = 'localhost';
+$config['site_address'] = 'http://localhost';
+
+/**
+ * The e-mail address verification e-mails are sent from
+ */
+$config['verify_email_sender'] = 'verify@asynctive.com';

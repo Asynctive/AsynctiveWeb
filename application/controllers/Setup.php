@@ -57,9 +57,12 @@ class Setup extends Admin_Controller
 		$this->_render('admin/create_user.php');
 	}
 
+	/**
+	 * Method for remote checking of username
+	 */
 	public function check_username()
 	{
-		if (!empty($_POST))
+		if (!empty($_POST) && $this->input->post('username') !== FALSE)
 		{
 			if ($this->user_model->getIdByUsername($this->input->post('username')) !== FALSE)
 				echo 'false';
@@ -72,9 +75,12 @@ class Setup extends Admin_Controller
 		}
 	}
 
+	/**
+	 * Method for remote checking of e-mail
+	 */
 	public function check_email()
 	{
-		if (!empty($_POST))
+		if (!empty($_POST) && $this->input->post('email') !== FALSE)
 		{
 			if ($this->user_model->getIdByEmail($this->input->post('email')) !== FALSE)
 				echo 'false';
@@ -86,6 +92,7 @@ class Setup extends Admin_Controller
 			echo 'false';
 		}
 	}
+	
 	
 	/**
 	 * Deletes the setup files for production mode
