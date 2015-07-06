@@ -11,10 +11,9 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(60) NOT NULL,
-    `key` VARCHAR(50) NOT NULL COMMENT 'Associated array key name',
-    PRIMARY KEY(`id`),
-    UNIQUE(`name`)
+    `label` VARCHAR(60) NOT NULL UNIQUE,
+    `key_name` VARCHAR(50) NOT NULL COMMENT 'Associated array key name in Roles library',
+    PRIMARY KEY(`id`)
 ) ENGINE=InnoDB;
 
 
@@ -42,10 +41,21 @@ CREATE TABLE `users`(
     `first_name` VARCHAR(200),
     `last_name` VARCHAR(200),
     `email` VARCHAR(256) NOT NULL UNIQUE,
-    `email_verified` BOOL NOT NULL DEFAULT '0' COMMENT 'Easy way to check without using another query',
+    `email_verified` BOOL NOT NULL DEFAULT 0 COMMENT 'Easy way to check without using another query',
     `created` INT(11) UNSIGNED NOT NULL,
     `updated` INT(11) UNSIGNED NOT NULL,
     PRIMARY KEY(`id`)
+) ENGINE=InnoDB;
+
+
+DROP TABLE IF EXISTS `sessions`;
+CREATE TABLE `sessions`(
+	`id` VARCHAR(40) NOT NULL,
+    `ip_address` VARCHAR(45) NOT NULL,
+    `timestamp` INT(10) UNSIGNED DEFAULT 0 NOT NULL,
+    `data` BLOB NOT NULL,
+    PRIMARY KEY(`id`),
+    INDEX `ci_sessions_timestamp`(`timestamp`)
 ) ENGINE=InnoDB;
 
 
@@ -86,7 +96,7 @@ CREATE TABLE `news_categories`(
     `name` VARCHAR(150) NOT NULL UNIQUE,
     `slug` VARCHAR(150) NOT NULL UNIQUE,
     PRIMARY KEY(`id`),
-    INDEX `news_categories_slug_idx` (`slug` ASC),
+    INDEX `news_categories_slug_idx` (`slug` ASC)
 ) ENGINE=InnoDB;
 
 

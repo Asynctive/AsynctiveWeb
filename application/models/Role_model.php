@@ -11,21 +11,35 @@ class Role_model extends CI_Model
 	 */
 	public function createRole($name, $class)
 	{
-		$this->db->insert(TABLE_ROLES, array('name' => $name, 'key' => $class));
+		$this->db->insert(TABLE_ROLES, array('label' => $name, 'key_name' => $class));
 		return $this->db->insert_id();
 	}
 	
 	/**
-	 * Gets role by name
+	 * Gets role by key name
 	 * @return array|bool
 	 */
-	public function getByName($name)
+	public function getByKeyName($key_name)
 	{
-		$query = $this->db->get_where(TABLE_ROLES, array('name' => $name), 1);
+		$query = $this->db->get_where(TABLE_ROLES, array('key_name' => $key_name), 1);
 		if ($query->num_rows == 0)
 			return FALSE;
 		
 		return $query->row();
+	}
+	
+	/**
+	 * Gets batch by key names
+	 * @return array
+	 */
+	public function getByKeyNames($key_names)
+	{
+		$this->db->select('*')
+				 ->from(TABLE_ROLES)
+				 ->or_where_in('key_name', $key_names);
+		
+		$query = $this->db->get();
+		return $query->result();
 	}
 	
 	/**

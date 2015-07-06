@@ -13,7 +13,7 @@ class AS_Controller extends CI_Controller
 		
 		$this->config->load('asynctive_config.php');
 		$this->load->helper('url');
-		$this->load->model('user_model');
-		$this->load->model('user_role_assoc_model');
+		$this->load->model(array('user_model', 'user_role_assoc_model'));
+		$this->load->library('session');
 	}
 }

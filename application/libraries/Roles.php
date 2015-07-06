@@ -20,7 +20,7 @@ class Roles
 	}
 	
 	protected $PERMISSIONS = array(
-		'SUPER_ADMIN' => array(
+		ROLE_SUPER_ADMIN => array(
 			PERMISSION_LOGIN,
 			PERMISSION_CREATE_NEWS_CATEGORY,
 			PERMISSION_EDIT_NEWS_CATEGORY,
@@ -43,7 +43,7 @@ class Roles
 			PERMISSION_CHANGE_USER_ROLE
 		),
 		
-		'ADMIN' => array(
+		ROLE_ADMIN => array(
 			PERMISSION_LOGIN,
 			PERMISSION_CREATE_NEWS_CATEGORY,
 			PERMISSION_EDIT_NEWS_CATEGORY,
@@ -62,13 +62,13 @@ class Roles
 			PERMISSION_BAN_USER
 		),
 		
-		'USER' => array(
+		ROLE_USER => array(
 			PERMISSION_LOGIN,
 			PERMISSION_ADD_TO_CART,
 			PERMISSION_CHECKOUT
 		),
 		
-		'BANNED' => array(
+		ROLE_BANNED => array(
 		)
 	);
 }

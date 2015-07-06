@@ -128,3 +128,15 @@ define('PERMISSION_EDIT_ROLE', 20);
 define('PERMISSION_DELETE_ROLE', 21);
 define('PERMISSION_CHANGE_USER_ROLE', 22);
 define('PERMISSION_BAN_USER', 23);
+
+/*
+|--------------------------------------------------------------------------
+| Asynctive Role Strings
+|--------------------------------------------------------------------------
+|
+| Used for storing in the database and Roles array
+ */
+define('ROLE_SUPER_ADMIN', 'SUPER_ADMIN');
+define('ROLE_ADMIN', 'ADMIN');
+define('ROLE_USER', 'USER');
+define('ROLE_BANNED', 'BANNED');

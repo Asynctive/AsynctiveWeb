@@ -16,6 +16,24 @@ class User_Role_Assoc_model extends CI_Model
 	}
 	
 	/**
+	 * Check if anybody is in a role
+	 */
+	public function getRoleIsEmpty($role_id)
+	{
+		$this->db->select('id')
+				 ->from(TABLE_USER_ROLE_ASSOC)
+				 ->where('role_id', $role_id)
+				 ->limit(1);
+				 
+		$query = $this->db->get();
+		if ($query->num_rows() == 0)
+			return TRUE;
+		
+		else
+			return FALSE;
+	}
+	
+	/**
 	 * Removes a user from a role
 	 */
 	public function removeUserFromRole($user_id, $role_id)
