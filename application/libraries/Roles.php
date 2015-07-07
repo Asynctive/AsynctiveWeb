@@ -12,7 +12,7 @@ class Roles
 	{
 		foreach($role_keys as $key)
 		{
-			if (in_array($this->PERMISSIONS[$key], $permission, TRUE))
+			if (in_array($permission, $this->PERMISSIONS[$key], TRUE))
 				return TRUE;
 		}
 		
@@ -21,7 +21,6 @@ class Roles
 	
 	protected $PERMISSIONS = array(
 		ROLE_SUPER_ADMIN => array(
-			PERMISSION_LOGIN,
 			PERMISSION_CREATE_NEWS_CATEGORY,
 			PERMISSION_EDIT_NEWS_CATEGORY,
 			PERMISSION_DELETE_NEWS_CATEGORY,
@@ -44,7 +43,6 @@ class Roles
 		),
 		
 		ROLE_ADMIN => array(
-			PERMISSION_LOGIN,
 			PERMISSION_CREATE_NEWS_CATEGORY,
 			PERMISSION_EDIT_NEWS_CATEGORY,
 			PERMISSION_DELETE_NEWS_CATEGORY,
@@ -63,12 +61,8 @@ class Roles
 		),
 		
 		ROLE_USER => array(
-			PERMISSION_LOGIN,
 			PERMISSION_ADD_TO_CART,
 			PERMISSION_CHECKOUT
-		),
-		
-		ROLE_BANNED => array(
 		)
 	);
 }

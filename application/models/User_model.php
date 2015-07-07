@@ -7,6 +7,7 @@ class User_model extends CI_Model
 {
 	/**
 	 * Creates a user
+	 * @param data
 	 * @return int
 	 */
 	public function createUser($data)
@@ -17,6 +18,7 @@ class User_model extends CI_Model
 	
 	/**
 	 * Gets a user id by name
+	 * @param string
 	 * @return int|bool
 	 */
 	public function getIdByUsername($username)
@@ -32,6 +34,25 @@ class User_model extends CI_Model
 		
 		$row = $query->row();
 		return (int)$row->id;
+	}
+	
+	/**
+	 * Gets a user by username
+	 * @param string
+	 * @return array|bool
+	 */
+	public function getUserByUsername($username)
+	{
+		$this->db->select('*')
+				 ->from(TABLE_USERS)
+				 ->where('username', $username)
+				 ->limit(1);
+				 
+		$query = $this->db->get();
+		if ($query->num_rows() == 0)
+			return FALSE;
+		
+		return $query->row();
 	}
 	
 	/**
@@ -59,7 +80,7 @@ class User_model extends CI_Model
 	 */
 	public function getRoles($user_id)
 	{
-		$this->db->select('role_id, class')
+		$this->db->select('role_id, key_name')
 				 ->from(TABLE_USERS)
 				 ->join(TABLE_USER_ROLE_ASSOC, TABLE_USER_ROLE_ASSOC . '.user_id = ' . TABLE_USERS . '.id')
 				 ->join(TABLE_ROLES, TABLE_ROLES . '.id = ' . TABLE_USER_ROLE_ASSOC . '.role_id')

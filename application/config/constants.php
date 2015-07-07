@@ -96,6 +96,7 @@ define('TABLE_USERS', 'users');
 define('TABLE_ROLES', 'roles');
 define('TABLE_USER_ROLE_ASSOC', 'user_role_associations');
 define('TABLE_PENDING_EMAILS', 'pending_email_verifications');
+define('TABLE_USER_BANS', 'user_bans');
 
 /*
 |--------------------------------------------------------------------------
@@ -105,7 +106,6 @@ define('TABLE_PENDING_EMAILS', 'pending_email_verifications');
 | Used to store all permissions within a role
 |
 */
-define('PERMISSION_LOGIN', 0);					// Excluded in 'Banned' class
 define('PERMISSION_CREATE_NEWS_CATEGORY', 1);
 define('PERMISSION_EDIT_NEWS_CATEGORY', 2);
 define('PERMISSION_DELETE_NEWS_CATEGORY', 3);
@@ -140,4 +140,3 @@ define('PERMISSION_BAN_USER', 23);
 define('ROLE_SUPER_ADMIN', 'SUPER_ADMIN');
 define('ROLE_ADMIN', 'ADMIN');
 define('ROLE_USER', 'USER');
-define('ROLE_BANNED', 'BANNED');

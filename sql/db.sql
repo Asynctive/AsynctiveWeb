@@ -48,6 +48,22 @@ CREATE TABLE `users`(
 ) ENGINE=InnoDB;
 
 
+DROP TABLE IF EXISTS `user_bans`;
+CREATE TABLE `user_bans`(
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `user_id` BIGINT UNSIGNED NOT NULL,
+	`ip_address` VARCHAR(45),
+    `active` BOOL NOT NULL DEFAULT 0,
+    `reason` TEXT,
+    `created` INT(11) NOT NULL,
+    `expires` INT(11) NOT NULL,
+    `updated` INT(11) NOT NULL,
+    PRIMARY KEY(`id`),
+    CONSTRAINT `fk_banned_users_user_id` FOREIGN KEY(`user_id`) REFERENCES `users`(`id`)
+    ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions`(
 	`id` VARCHAR(40) NOT NULL,
@@ -146,6 +162,8 @@ CREATE TABLE `software`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(200) NOT NULL UNIQUE,
     `desc` TEXT,
+    `meta_desc` VARCHAR(250),
+    `meta_keywords` VARCHAR(250),
     PRIMARY KEY(`id`)
 ) ENGINE=InnoDB;
 

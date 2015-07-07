@@ -128,7 +128,6 @@ class Setup extends Admin_Controller
 			'Super Admin' => ROLE_SUPER_ADMIN,
 			'Admin' => ROLE_ADMIN,
 			'User' => ROLE_USER,
-			'Banned' => ROLE_BANNED
 		);
 		$role_values = array_values($roles);
 		$role_results = $this->role_model->getByKeyNames($role_values);
@@ -161,7 +160,6 @@ class Setup extends Admin_Controller
 			ROLE_SUPER_ADMIN,
 			ROLE_ADMIN,
 			ROLE_USER,
-			ROLE_BANNED
 		);
 		$role_results = $this->role_model->getByKeyNames($roles);
 		$existing_roles = array();

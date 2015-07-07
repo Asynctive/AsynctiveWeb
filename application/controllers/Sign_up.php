@@ -18,50 +18,66 @@ class Sign_up extends Site_Controller
 			$this->form_validation->set_rules($this->SIGN_UP_RULES);
 			if ($this->form_validation->run())
 			{
-				$data = array(
-					'first_name' => $this->input->post('signup_first_name'),
-					'last_name' => $this->input->post('signup_last_name'),
-					'username' => $this->input->post('signup_username'),
-					'email' => $this->input->post('signup_email'),
-					'password' => password_hash($this->input->post('signup_password'), PASSWORD_DEFAULT),
-					'created' => time(),
-					'updated' => time()
-				);
-				
-				$this->db->trans_start();
-				$user_id = $this->user_model->createUser($data);
-				
-				// Add to User role
-				$this->load->model('role_model');
-				$role = $this->role_model->getByKeyName(ROLE_USER);
-				$this->user_role_assoc_model->addUserToRole($user_id, $role->id);
-				
-				// Pending e-mail
-				$this->load->model('pending_email_model');
-				$this->load->helper('uuid');
-				$this->load->helper('random');
-				$id = generateUUIDv4();
-				$code = generateRandomHexString(8);
-				$this->pending_email_model->createVerification($id, $user_id, $code, time());
-				
-				$this->db->trans_complete();
-				if ($this->db->trans_status())
+				// Check if IP address is currently banned
+				$ban_record = $this->user_ban_model->getActiveByIpAddress($this->input->ip_address());
+				if ($ban_record !== FALSE)
 				{
-					$this->data['title'] = 'Asynctive | Registration Complete';
-					$this->data['registration_successful'] = TRUE;
-					$this->data['email'] = $data['email'];
-					
-					$this->load->library('email');
-					$this->email->from($this->config->item('verify_email_sender'));
-					$this->email->to($data['email']);
-					$this->email->subject('Verify Your Account');
-					$message = '<html><body><a href="' . $this->config->item('site_address') . '/verify/' . $id . '/' . $code . 
-								'">Click here</a> to verify your Asynctive account</body></html>';
-					$this->email->message($message);
-					$this->email->send();
+					$this->data['banned'] = TRUE;
+					$this->data['ban'] = array(
+						'title' => 'Registration Failed',
+						'message' => "Account registrations are disabled for this machine",
+						'reason' => $ban_record->reason
+					);
 				}
-			}
-		}
+				
+				else
+				{
+				
+					$data = array(
+						'first_name' => $this->input->post('signup_first_name'),
+						'last_name' => $this->input->post('signup_last_name'),
+						'username' => $this->input->post('signup_username'),
+						'email' => $this->input->post('signup_email'),
+						'password' => password_hash($this->input->post('signup_password'), PASSWORD_DEFAULT),
+						'created' => time(),
+						'updated' => time()
+					);
+					
+					$this->db->trans_start();
+					$user_id = $this->user_model->createUser($data);
+					
+					// Add to User role
+					$this->load->model('role_model');
+					$role = $this->role_model->getByKeyName(ROLE_USER);
+					$this->user_role_assoc_model->addUserToRole($user_id, $role->id);
+					
+					// Pending e-mail
+					$this->load->model('pending_email_model');
+					$this->load->helper('uuid');
+					$this->load->helper('random');
+					$id = generateUUIDv4();
+					$code = generateRandomHexString(8);
+					$this->pending_email_model->createVerification($id, $user_id, $code, time());
+					
+					$this->db->trans_complete();
+					if ($this->db->trans_status())
+					{
+						$this->data['title'] = 'Asynctive | Registration Complete';
+						$this->data['registration_successful'] = TRUE;
+						$this->data['email'] = $data['email'];
+						
+						$this->load->library('email');
+						$this->email->from($this->config->item('verify_email_sender'));
+						$this->email->to($data['email']);
+						$this->email->subject('Verify Your Account');
+						$message = '<html><body><a href="' . $this->config->item('site_address') . '/verify/' . $id . '/' . $code . 
+									'">Click here</a> to verify your Asynctive account</body></html>';
+						$this->email->message($message);
+						$this->email->send();
+					}
+				} // IP ban check
+			}  // Form validation
+		} // Post data
 		
 		$this->_render('pages/sign_up.php');
 	}

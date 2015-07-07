@@ -59,7 +59,7 @@ be the head coder(s). Constants can be reviewed in application/config/constants.
 	PERMISSION_DELETE_ROLE
 	PERMISSION_BAN_USER
 	
-### Available Roles:
+#### Available Roles:
 	ROLE_SUPER_ADMIN
 	ROLE_ADMIN
 	ROLE_USER

@@ -12,7 +12,44 @@ class Site_Controller extends AS_Controller
 		$this->_checkSiteStatus();
 		
 		$this->data['page'] = $page;
-		$this->_generateTitle($page);
+		$this->data['title'] = $this->_generateTitle($page);
+		
+		$login = $this->_checkForLogin();
+		// Log them in
+		if ($login === TRUE)
+		{
+			$_SESSION['logged_in'] = TRUE;
+			$_SESSION['user_id'] = $this->user->id;
+			$_SESSION['username'] = $this->user->username;
+		}
+		
+		else if ($login === FALSE)
+		{
+			$this->data['login_failed'] = TRUE;
+		}
+		
+		// If logged in
+		if (isset($_SESSION['logged_in']))
+		{
+			$this->data['logged_in'] = TRUE;
+			
+			// Check if banned
+			$ban_record = $this->user_ban_model->getActiveByUserId($_SESSION['user_id']);
+			if ($ban_record !== FALSE)
+			{
+				$this->data['banned'] = TRUE;
+				$this->data['ban'] = array(
+					'title' => 'Account Frozen',
+					'message' => "We're sorry but this account is banned",
+					'reason' => $ban_record->reason
+				);
+			}
+			
+			$role_results = $this->user_model->getRoles($_SESSION['user_id']);
+			$roles = array();
+			foreach($role_results as $role)
+				$roles[] = $role->key_name;
+		}
 	}
 		
 	/**

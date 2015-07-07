@@ -3,9 +3,15 @@ RewriteEngine On
 
 RewriteRule ^index.php/(.*)$ /$1 [R=302,L]
 
+# E-mail verification
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^verify/(.+)/(.+)$ /index.php/home/verify/$1/$2 [L]
+
+# Logout
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^logout$ /index.php/home/logout [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

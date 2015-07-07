@@ -1,8 +1,8 @@
 <?php
 	// Store checks for less repetitive code
-	$isHome = ($page == 'home');
-	$isContact = ($page == 'contact');
-	$isSignup = ($page == 'sign_up');
+	$is_home = ($page == 'home');
+	$is_contact = ($page == 'contact');
+	$is_signup = ($page == 'sign_up');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,7 @@
 		
 		<!-- jQuery -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<?php if($isSignup): ?>
+		<?php if($is_signup): ?>
 		<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 		<?php endif; ?>
 		
@@ -28,10 +28,10 @@
 		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="/css/common.css">
-		<?php if($isContact): ?>
+		<?php if($is_contact): ?>
 		<link rel="stylesheet" type="text/css" href="/css/contact.css">
 		<script type="text/javascript" src="/js/contact.js"></script>
-		<?php elseif($isSignup): ?>
+		<?php elseif($is_signup): ?>
 		<link rel="stylesheet" type="text/css" href="/css/sign_up.css">
 		<script type="text/javascript" src="/js/sign_up.js"></script>
 		<?php endif; ?>
@@ -40,45 +40,56 @@
 	<?php
 		// Don't want to stick a bunch of code into the body tag for event handlers
 		$onload = '';
-		if ($isContact)
+		if ($is_contact)
 			$onload = ' onload="setEmailFields()"';
 	?>
 	<body<?php echo $onload; ?>>
 		
 		<div id="top-bar" class="container">
-		<?php if (!isset($logged_in) && (!$isSignup || isset($registration_successful)) ): ?>
+		<?php if (!isset($logged_in) && (!$is_signup || isset($registration_successful)) ): ?>
+			<?php $login_failed = isset($login_failed) ?>
 			<div id="login-box" class="hidden-xs">
 				<form role="form" class="form-inline" method="POST">
-					<div class="form-group">
-						<label for="login-username">Username:</label>
-						<input id="login-username" name="login-username" type="text" class="form-control input-sm">
+					<div class="col-sm-11 col-sm-offset-1 col-lg-7 col-lg-offset-5" <?php if($login_failed): ?>id="login-error"<?php endif; ?>>
+						<?php if($login_failed): ?>
+							<p style="text-align: left; padding-left: 10px">Login Failed</p>
+						<?php endif; ?>
+						
+						<div class="form-group">
+							<label for="login-username">Username:</label>
+							<input id="login-username" name="login_username" type="text" class="form-control input-sm">
+						</div>
+						
+						<div class="form-group" style="margin-left: 1em">
+							<label for="login-password">Password:</label>
+							<input id="login-password" name="login_password" type="password" class="form-control input-sm">
+						</div>
+						
+						<button type="submit" class="btn btn-default" style="margin-left: 5px">Login</button>
+						<a href="/sign_up">Sign Up</a>
+						
+						<p><a href="/pwreset" style="font-size: 0.85em">Forgot Password?</a></p>
 					</div>
-					
-					<div class="form-group" style="margin-left: 1em">
-						<label for="login-password">Password:</label>
-						<input id="login-password" name="login-password" type="password" class="form-control input-sm">
-					</div>
-					
-					<button type="submit" class="btn btn-default" style="margin-left: 5px">Login</button>
-					<a href="/sign_up">Sign Up</a>
 				</form>
-				<a href="/pwreset" style="font-size: 0.85em">Forgot Password?</a>
 			</div>
 			
 			<!-- Mobile login -->
 			<div id="login-box-mobile" class="visible-xs">
-				<form role="form" class="form-horizontal" method="POST">
+				<form role="form" class="form-horizontal" method="POST" <?php if($login_failed): ?>id="login-error"<?php endif; ?>>
+					<?php if($login_failed): ?>
+						<p>Login Failed</p>
+					<?php endif; ?>
 					<div class="form-group">
 						<label for="login-username-mobile" class="col-xs-3 control-label">Username</label>
 						<div class="col-xs-9">
-							<input id="login-username-mobile" type="text" name="login-username" class="form-control input-sm">
+							<input id="login-username-mobile" type="text" name="login_username" class="form-control input-sm">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label for="login-password-mobile" class="col-xs-3 control-label">Password</label>
 						<div class="col-xs-9">
-							<input id="login-password-mobile" type="password" name="login-password" class="form-control input-sm">
+							<input id="login-password-mobile" type="password" name="login_password" class="form-control input-sm">
 						</div>
 					</div>
 					
@@ -131,3 +142,13 @@
 				<div id="content-box" class="col-xs-12 black-box">
 					<main role="main">
 					
+					<?php if(isset($banned)): ?>
+					<div id="ban-message">
+						<h4><?php echo $ban['title'] ?></h4>
+						<p>
+							<?php echo $ban['message'] ?>
+							<br>
+							<p>Reason: <span style="font-style: italic"><?php echo $ban['reason'] ?></span></p>
+						</p>
+					</div>
+					<?php endif; ?>
