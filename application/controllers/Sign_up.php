@@ -38,7 +38,6 @@ class Sign_up extends Site_Controller
 						'last_name' => $this->input->post('signup_last_name'),
 						'username' => $this->input->post('signup_username'),
 						'email' => $this->input->post('signup_email'),
-						'email_verified' => TRUE,
 						'password' => password_hash($this->input->post('signup_password'), PASSWORD_DEFAULT),
 						'created' => time(),
 						'updated' => time()
