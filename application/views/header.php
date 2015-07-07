@@ -44,15 +44,15 @@
 			$onload = ' onload="setEmailFields()"';
 	?>
 	<body<?php echo $onload; ?>>
-		
-		<div id="top-bar" class="container">
+	
 		<?php if (!isset($logged_in) && (!$is_signup || isset($registration_successful)) ): ?>
+		<div id="top-bar" class="container">
 			<?php $login_failed = isset($login_failed) ?>
 			<div id="login-box" class="hidden-xs">
 				<form role="form" class="form-inline" method="POST">
 					<div class="col-sm-11 col-sm-offset-1 col-lg-7 col-lg-offset-5" <?php if($login_failed): ?>id="login-error"<?php endif; ?>>
 						<?php if($login_failed): ?>
-							<p style="text-align: left; padding-left: 10px">Login Failed</p>
+						<p style="text-align: left; padding-left: 10px">Login Failed</p>
 						<?php endif; ?>
 						
 						<div class="form-group">
@@ -105,11 +105,30 @@
 					</div>
 				</form>
 			</div>
-			
-		<?php else: ?>
-			<!-- TODO: User bar -->
-		<?php endif; ?>
 		</div>
+		<?php elseif(!$is_signup): ?>
+			
+		<!-- User bar -->
+		<div id="user-bar" class="container-fluid black-box vertical-align">
+			<div class="row-fluid">
+				<div class="col-xs-7 col-sm-4 col-sm-offset-5">
+					<div class="dropdown" style="text-align: right">
+						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><?php echo $username ?> <span class="caret"></span></button>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li><a href="#">Settings</a></li>
+							<li><a href="#">Order History</a></li>
+							<li><a href="logout">Logout</a></li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="col-xs-5 col-sm-3">
+					Checkout Placeholder
+				</div>
+			</div>
+		</div>
+		
+		<?php endif; ?>
 
 		<div id="main-wrapper" class="container">
 			<div class="row">

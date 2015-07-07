@@ -32,6 +32,7 @@ class Site_Controller extends AS_Controller
 		if (isset($_SESSION['logged_in']))
 		{
 			$this->data['logged_in'] = TRUE;
+			$this->data['username'] = $_SESSION['username'];
 			
 			// Check if banned
 			$ban_record = $this->user_ban_model->getActiveByUserId($_SESSION['user_id']);

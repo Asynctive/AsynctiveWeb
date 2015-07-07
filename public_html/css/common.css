@@ -52,6 +52,12 @@
 		margin-top: -15px;
 		color: #000000;
 	}
+	
+	#user-bar .dropdown button
+	{
+		text-align: left !important;
+		content: 'Account';
+	}
 }
 
 /* Small screens */
@@ -135,6 +141,22 @@
 #top-bar
 {
 	padding: 10px;
+}
+
+#user-bar
+{
+	padding: 5px;
+	min-height: 30px;
+	margin-bottom: 3em;
+	line-height: 30px;
+	vertical-align: middle;
+}
+
+#user-bar button
+{
+	background-color: #ffffff;
+	color: #000000;
+	max-width: 100%;
 }
 
 #nav-bottom-bar
