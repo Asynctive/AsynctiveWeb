@@ -21,6 +21,7 @@ class Site_Controller extends AS_Controller
 			$_SESSION['logged_in'] = TRUE;
 			$_SESSION['user_id'] = $this->user->id;
 			$_SESSION['username'] = $this->user->username;
+			$_SESSION['email_verified'] = $this->user->email_verified;
 		}
 		
 		else if ($login === FALSE)
@@ -33,6 +34,7 @@ class Site_Controller extends AS_Controller
 		{
 			$this->data['logged_in'] = TRUE;
 			$this->data['username'] = $_SESSION['username'];
+			$this->data['email_verified'] = $_SESSION['email_verified'];
 			
 			// Check if banned
 			$ban_record = $this->user_ban_model->getActiveByUserId($_SESSION['user_id']);

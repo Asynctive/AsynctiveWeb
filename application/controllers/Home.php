@@ -34,7 +34,8 @@ class Home extends Site_Controller
 				
 				if ($this->db->trans_status() !== FALSE)
 				{
-					$this->data['verified'] = TRUE;
+					$_SESSION['email_verified'] = TRUE;
+					$this->data['email_verified'] = $_SESSION['email_verified'];
 				}
 			}
 		}

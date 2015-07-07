@@ -18,7 +18,7 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<?php if($is_signup): ?>
 		<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
-		<?php endif; ?>
+		<?php endif ?>
 		
 		<!-- Fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Nunito:700' rel='stylesheet' type='text/css'>
@@ -34,7 +34,7 @@
 		<?php elseif($is_signup): ?>
 		<link rel="stylesheet" type="text/css" href="/css/sign_up.css">
 		<script type="text/javascript" src="/js/sign_up.js"></script>
-		<?php endif; ?>
+		<?php endif ?>
 	</head>
 	
 	<?php
@@ -50,10 +50,10 @@
 			<?php $login_failed = isset($login_failed) ?>
 			<div id="login-box" class="hidden-xs">
 				<form role="form" class="form-inline" method="POST">
-					<div class="col-sm-11 col-sm-offset-1 col-lg-7 col-lg-offset-5" <?php if($login_failed): ?>id="login-error"<?php endif; ?>>
+					<div class="col-sm-11 col-sm-offset-1 col-lg-7 col-lg-offset-5" <?php if($login_failed): ?>id="login-error"<?php endif ?>>
 						<?php if($login_failed): ?>
 						<p style="text-align: left; padding-left: 10px">Login Failed</p>
-						<?php endif; ?>
+						<?php endif ?>
 						
 						<div class="form-group">
 							<label for="login-username">Username:</label>
@@ -75,10 +75,10 @@
 			
 			<!-- Mobile login -->
 			<div id="login-box-mobile" class="visible-xs">
-				<form role="form" class="form-horizontal" method="POST" <?php if($login_failed): ?>id="login-error"<?php endif; ?>>
+				<form role="form" class="form-horizontal" method="POST" <?php if($login_failed): ?>id="login-error"<?php endif ?>>
 					<?php if($login_failed): ?>
 						<p>Login Failed</p>
-					<?php endif; ?>
+					<?php endif ?>
 					<div class="form-group">
 						<label for="login-username-mobile" class="col-xs-3 control-label">Username</label>
 						<div class="col-xs-9">
@@ -110,10 +110,15 @@
 			
 		<!-- User bar -->
 		<div id="user-bar" class="container-fluid black-box vertical-align">
-			<div class="row-fluid">
+			<div class="row-fluid">				
 				<div class="col-xs-7 col-sm-4 col-sm-offset-5">
 					<div class="dropdown" style="text-align: right">
-						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><?php echo $username ?> <span class="caret"></span></button>
+						<?php if(!$email_verified) echo '<span class="unverified-text">(Unverified)</span>' ?>
+						<button class="btn btn-primary dropdown-toggle<?php if(!$email_verified) echo ' unverified' ?>" type="button" data-toggle="dropdown">
+							<?php echo $username ?>
+							<span class="caret"></span>
+						</button>
+						<br>
 						<ul class="dropdown-menu dropdown-menu-right">
 							<li><a href="#">Settings</a></li>
 							<li><a href="#">Order History</a></li>
@@ -128,7 +133,7 @@
 			</div>
 		</div>
 		
-		<?php endif; ?>
+		<?php endif ?>
 
 		<div id="main-wrapper" class="container">
 			<div class="row">
@@ -170,4 +175,4 @@
 							<p>Reason: <span style="font-style: italic"><?php echo $ban['reason'] ?></span></p>
 						</p>
 					</div>
-					<?php endif; ?>
+					<?php endif ?>

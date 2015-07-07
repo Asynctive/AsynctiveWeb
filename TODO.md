@@ -8,7 +8,7 @@
 	+	Store
 +   Small style adjustments
 +   Static pages
-+	Members pages
++	Account pages
 +	Product pages
 +	News pages
 +	Checkout pages

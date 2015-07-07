@@ -50,4 +50,4 @@
 <p>
 	User account created successfully.<br>
 </p>
-<?php endif; ?>
+<?php endif ?>

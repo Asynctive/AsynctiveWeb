@@ -34,6 +34,7 @@ class Setup extends Admin_Controller
 					'username' => $this->input->post('username'),
 					'email' => $this->input->post('email'),
 					'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+					'email_verified' => TRUE,
 					'created' => time(),
 					'updated' => time()
 				);

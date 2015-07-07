@@ -12,7 +12,7 @@
 		
 		<?php if ($page == 'create_user'): ?>
 		<script type="text/javascript" src="/js/admin/create_user.js"></script>
-		<?php endif; ?>
+		<?php endif ?>
 	</head>
 	
 	<body>

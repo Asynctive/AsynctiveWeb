@@ -53,9 +53,9 @@
 		color: #000000;
 	}
 	
-	#user-bar .dropdown button
+	#user-bar .dropdown
 	{
-		text-align: left !important;
+		text-align: center !important;
 		content: 'Account';
 	}
 }
@@ -115,6 +115,26 @@
 
 .info
 {
+	font-style: italic;
+}
+
+.unverified
+{
+	border: solid 2px #bb0000;
+}
+
+button.unverified:hover
+{
+	border: solid 2px #ff0000;
+}
+
+.unverified-text
+{
+	font-size: 0.85em;
+	background-color: #444444;
+	border-radius: 5px;
+	padding: 5px;
+	color: #ffffff;
 	font-style: italic;
 }
 
