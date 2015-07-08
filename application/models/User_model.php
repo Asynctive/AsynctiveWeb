@@ -56,6 +56,25 @@ class User_model extends CI_Model
 	}
 	
 	/**
+	 * Gets a user by id
+	 * @param int
+	 * @return array|bool
+	 */
+	public function getUserById($id)
+	{
+		$this->db->select('*')
+				 ->from(TABLE_USERS)
+				 ->where('id', $id)
+				 ->limit(1);
+				 
+		$query = $this->db->get();
+		if ($query->num_rows() == 0)
+			return FALSE;
+			
+		return $query->row();
+	}
+	
+	/**
 	 * Gets a user id by email
 	 * @return int|bool
 	 */
@@ -95,8 +114,8 @@ class User_model extends CI_Model
 	 * @param int
 	 * @param array
 	 */
-	public function updateUserById($id, $data)
+	public function updateUserById($data, $id)
 	{
-		$this->db->update(TABLE_USERS, $data, array('id' => $id));
+		$this->db->update(TABLE_USERS, $data, "id = $id");
 	}
 }

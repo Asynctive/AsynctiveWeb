@@ -3,6 +3,7 @@
 	$is_home = ($page == 'home');
 	$is_contact = ($page == 'contact');
 	$is_signup = ($page == 'sign_up');
+	$is_user_settings = $page == 'user_settings';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,9 +17,7 @@
 		
 		<!-- jQuery -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<?php if($is_signup): ?>
-		<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
-		<?php endif ?>
+		<!--<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>-->
 		
 		<!-- Fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Nunito:700' rel='stylesheet' type='text/css'>
@@ -34,6 +33,9 @@
 		<?php elseif($is_signup): ?>
 		<link rel="stylesheet" type="text/css" href="/css/sign_up.css">
 		<script type="text/javascript" src="/js/sign_up.js"></script>
+		<?php elseif($is_user_settings): ?>
+		<link rel="stylesheet" type="text/css" href="/css/user_settings.css">
+		<script type="text/javascript" src="/js/user_settings.js"></script>
 		<?php endif ?>
 	</head>
 	
@@ -120,7 +122,7 @@
 						</button>
 						<br>
 						<ul class="dropdown-menu dropdown-menu-right">
-							<li><a href="#">Settings</a></li>
+							<li><a href="/settings">Settings</a></li>
 							<li><a href="#">Order History</a></li>
 							<li><a href="logout">Logout</a></li>
 						</ul>

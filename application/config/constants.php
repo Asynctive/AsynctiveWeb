@@ -129,6 +129,7 @@ define('PERMISSION_EDIT_ROLE', 20);
 define('PERMISSION_DELETE_ROLE', 21);
 define('PERMISSION_CHANGE_USER_ROLE', 22);
 define('PERMISSION_BAN_USER', 23);
+define('PERMISSION_VIEW_OFFLINE_SITE', 24);
 
 /*
 |--------------------------------------------------------------------------

@@ -1,0 +1,62 @@
+/* Asynctive User Settings Stylesheet */
+
+/* Extra small screen */
+@media (max-width: 767px)
+{
+	.form-group #update-email
+	{
+		width: 100%;
+	}
+	
+	.form-group #update-password
+	{
+		width: 75%;
+	}
+	
+	.form-group #update-confirm-password
+	{
+		width: 75%;
+	}
+}
+
+.success
+{
+	width: 220px;
+	background-color: #006600;
+	border-radius: 10px;
+	padding: 5px;
+	color: #ffffff;
+	text-align: center;
+}
+
+main label
+{
+	display: block;
+}
+
+input.error
+{
+	display: inline-block;
+}
+
+label.error
+{
+	display: inline;
+	padding: 5px;
+	color: #ff0000;
+}
+
+#update-email
+{
+	width: 300px;
+}
+
+#update-password
+{
+	width: 250px;
+}
+
+#update-confirm-password
+{
+	width: 250px;
+}

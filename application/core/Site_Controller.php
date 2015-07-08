@@ -8,7 +8,7 @@ class Site_Controller extends AS_Controller
 	public function __construct($page)
 	{
 		parent::__construct();
-						
+		
 		$this->_checkSiteStatus();
 		
 		$this->data['page'] = $page;
