@@ -28,7 +28,7 @@ class Home extends Site_Controller
 				$this->pending_email_model->deleteVerificationById($id);
 				
 				$this->load->model('user_model');
-				$this->user_model->updateUserById($verification->user_id, array('email_verified' => TRUE));
+				$this->user_model->updateUserById(array('email_verified' => TRUE), $verification->user_id);
 				
 				$this->db->trans_complete();
 				
