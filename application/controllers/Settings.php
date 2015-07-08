@@ -67,10 +67,16 @@ class Settings extends Site_Controller
 		$this->load->helper(array('uuid', 'random'));
 		$this->load->model('pending_email_model');
 		
-		$this->pending_email_model->deleteVerificationByUserId($_SESSION['user_id']);
-		$this->pending_email_model->createVerification(generateUUIDv4(), $_SESSION['user_id'], generateRandomHexString(8), time());
+		// Don't send one if already verified
+		$user = $this->user_model->getUserById($_SESSION['user_id']);
+		if (!$user->email_verified)
+		{
+			$this->pending_email_model->deleteVerificationByUserId($_SESSION['user_id']);
+			$this->pending_email_model->createVerification(generateUUIDv4(), $_SESSION['user_id'], generateRandomHexString(8), time());
+			
+			$this->session->set_flashdata('verification_sent', TRUE);
+		}
 		
-		$this->session->set_flashdata('verification_sent', TRUE);
 		if ($redirect)
 			redirect('/settings', 200);
 	}
