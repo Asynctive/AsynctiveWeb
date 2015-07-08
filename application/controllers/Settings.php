@@ -26,20 +26,21 @@ class Settings extends Site_Controller
 			if ($this->form_validation->run())
 			{
 				$data = array();
-				$user = $this->user_model->getUserById($_SESSION['user_id']);
-				
+				$data['email'] = $email;
+								
 				$this->db->trans_start();
+				
+				if ($new_password != '')
+					$data['password'] = password_hash($new_password, PASSWORD_DEFAULT);
+				
 				// They aren't verified anymore
-				if ($email != $user->email)
+				$old_user = $this->user_model->getUserById($_SESSION['user_id']);
+				if ($email != $old_user->email)
 				{
 					$data['email_verified'] = FALSE;
 					$_SESSION['email_verified'] = FALSE;
 					$this->resend_verification(FALSE);
 				}
-				
-				$data['email'] = $email;
-				if ($new_password != '')
-					$data['password'] = password_hash($new_password, PASSWORD_DEFAULT);
 				
 				$this->user_model->updateUserById($data, $_SESSION['user_id']);
 				
@@ -69,7 +70,7 @@ class Settings extends Site_Controller
 		
 		// Don't send one if already verified
 		$user = $this->user_model->getUserById($_SESSION['user_id']);
-		if (!$user->email_verified)
+		if (!$_SESSION['email_verified'])
 		{
 			$this->pending_email_model->deleteVerificationByUserId($_SESSION['user_id']);
 			$this->pending_email_model->createVerification(generateUUIDv4(), $_SESSION['user_id'], generateRandomHexString(8), time());
