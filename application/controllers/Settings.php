@@ -27,9 +27,13 @@ class Settings extends Site_Controller
 			{
 				$data = array();
 				$user = $this->user_model->getUserById($_SESSION['user_id']);
+				
+				$this->db->trans_start();
+				// They aren't verified anymore
 				if ($email != $user->email)
 				{
 					$data['email_verified'] = FALSE;
+					$_SESSION['email_verified'] = FALSE;
 					$this->resend_verification(FALSE);
 				}
 				
@@ -38,7 +42,12 @@ class Settings extends Site_Controller
 					$data['password'] = password_hash($new_password, PASSWORD_DEFAULT);
 				
 				$this->user_model->updateUserById($data, $_SESSION['user_id']);
-				$this->data['updated'] = TRUE;
+				
+				$this->db->trans_complete();				
+				if ($this->db->trans_status() !== FALSE)
+				{
+					$this->data['updated'] = TRUE;
+				}
 			}
 			
 			$this->data['user_email'] = $email;
