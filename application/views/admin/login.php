@@ -12,6 +12,7 @@
 	<div class="form-group">
 		<label for="login-password">Password:</label>
 		<input id="login-password" name="login_password" type="password" class="form-control" placeholder="Password" style="width: 200px">
+		<a href="/admin/pwreset">Reset Password</a>
 	</div>
 	
 	<div class="form-group">

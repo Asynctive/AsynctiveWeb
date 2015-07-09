@@ -52,7 +52,7 @@ class PWReset extends Site_Controller
 						'code' => generateRandomHexString(8),
 						'remote_ip' => $this->input->ip_address(),
 						'created' => time(),
-						'expires' => time() + $this->config->item('pw_reset_expire_time')
+						'expires' => time() + $this->config->item('password_reset_expire_time')
 					);
 					
 					$this->db->trans_start();

@@ -13,6 +13,10 @@ class Login extends Admin_Controller
 	
 	public function index()
 	{
+		// If logged in, they shouldn't be accessing the login page
+		if (array_key_exists('user_id', $_SESSION))
+			redirect('/admin/main', 200);
+		
 		$login_user = $this->_checkForLoginAttempt();
 		$success = (is_array($login_user) && array_key_exists('success', $login_user) && $login_user['success']);
 		if ($success)
@@ -25,6 +29,7 @@ class Login extends Admin_Controller
 				$this->data['login_failure_message'] = 'Account is banned';
 			}
 			
+			// Has permission
 			else if ($this->roles->hasPermission($this->userRoles, PERMISSION_VIEW_OFFLINE_SITE))
 			{
 				$_SESSION['user_id'] = $login_user['data']->id;
@@ -33,6 +38,7 @@ class Login extends Admin_Controller
 				redirect('/admin/main', 200);
 			}
 			
+			// Doesn't have permission
 			else
 			{
 				$this->data['login_failure_message'] = 'Access denied';

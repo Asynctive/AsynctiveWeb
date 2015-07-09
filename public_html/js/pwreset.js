@@ -10,7 +10,7 @@ $('document').ready(function() {
 		rules: {
 			'pwreset_new_password': {
 				required: true,
-				minlength: 4
+				minlength: 6
 			},
 			
 			'pwreset_confirm_password': {

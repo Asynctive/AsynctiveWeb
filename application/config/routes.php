@@ -53,7 +53,7 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['pwreset/(:any)'] = 'pwreset/index/$1';
 $route['pwreset/(:any)/(:any)'] = 'pwreset/index/$1/$2';
 $route['admin'] = 'admin/login';
 $route['admin/logout'] = 'admin/login/logout';
+$route['admin/pwreset/(:any)/(:any)'] = 'admin/pwreset/index/$1/$2';

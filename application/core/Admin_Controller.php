@@ -18,7 +18,7 @@ class Admin_Controller extends AS_Controller
 				show_error('You do not have access to this area');
 		}
 		
-		else if ($page != 'admin_login')
+		else if ($page != 'admin_login' && $page != 'admin_pwreset')
 		{
 			redirect('/admin', 200);
 		}

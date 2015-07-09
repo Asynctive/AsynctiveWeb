@@ -4,3 +4,26 @@
 {
 	color: #ff0000;
 }
+
+.success
+{
+	color: #00bb00;
+}
+
+div label
+{
+	display: block;
+}
+
+input.error
+{
+	display: inline-block;
+}
+
+label.error
+{
+	display: inline-block;
+	color: #ff0000;
+	margin-left: 20px;
+	font-weight: normal;
+}

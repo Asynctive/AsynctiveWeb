@@ -30,4 +30,4 @@ $config['verify_email_sender'] = 'verify@asynctive.com';
  * Password reset expire time limit
  * In seconds
  */
-$config['pw_reset_expire_time'] = 60*60;
+$config['password_reset_expire_time'] = 60*60;
