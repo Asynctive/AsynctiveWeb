@@ -25,3 +25,9 @@ $config['site_address'] = 'http://localhost';
  * The e-mail address verification e-mails are sent from
  */
 $config['verify_email_sender'] = 'verify@asynctive.com';
+
+/**
+ * Password reset expire time limit
+ * In seconds
+ */
+$config['pw_reset_expire_time'] = 60*60;

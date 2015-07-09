@@ -3,7 +3,8 @@
 	$is_home = ($page == 'home');
 	$is_contact = ($page == 'contact');
 	$is_signup = ($page == 'sign_up');
-	$is_user_settings = $page == 'user_settings';
+	$is_user_settings = ($page == 'user_settings');
+	$is_pwreset = ($page == 'pwreset');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +18,7 @@
 		
 		<!-- jQuery -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<!--<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>-->
+		<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 		
 		<!-- Fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Nunito:700' rel='stylesheet' type='text/css'>
@@ -36,6 +37,9 @@
 		<?php elseif($is_user_settings): ?>
 		<link rel="stylesheet" type="text/css" href="/css/user_settings.css">
 		<script type="text/javascript" src="/js/user_settings.js"></script>
+		<?php elseif($is_pwreset): ?>
+		<link rel="stylesheet" type="text/css" href="/css/pwreset.css">
+		<script type="text/javascript" src="/js/pwreset.js"></script>
 		<?php endif ?>
 	</head>
 	

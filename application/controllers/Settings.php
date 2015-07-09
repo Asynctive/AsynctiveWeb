@@ -7,7 +7,8 @@ class Settings extends Site_Controller
 {
 	public function __construct()
 	{
-		parent::__construct('user_settings');		
+		parent::__construct('user_settings');
+		$this->data['title'] = 'Asynctive | Settings';
 	}
 	
 	public function index()

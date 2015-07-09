@@ -93,6 +93,20 @@ class User_model extends CI_Model
 		return (int)$row->id;
 	}
 	
+	public function getUserByEmail($email)
+	{
+		$this->db->select('*')
+				 ->from(TABLE_USERS)
+				 ->where('email', $email)
+				 ->limit(1);
+				 
+		$query = $this->db->get();
+		if ($query->num_rows() == 0)
+			return FALSE;
+		
+		return $query->row();
+	}
+	
 	/**
 	 * Gets the roles a user is in
 	 * @return array
@@ -116,6 +130,7 @@ class User_model extends CI_Model
 	 */
 	public function updateUserById($data, $id)
 	{
+		$data['updated'] = time();
 		$this->db->update(TABLE_USERS, $data, "id = $id");
 	}
 }

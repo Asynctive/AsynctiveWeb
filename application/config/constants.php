@@ -97,6 +97,7 @@ define('TABLE_ROLES', 'roles');
 define('TABLE_USER_ROLE_ASSOC', 'user_role_associations');
 define('TABLE_PENDING_EMAILS', 'pending_email_verifications');
 define('TABLE_USER_BANS', 'user_bans');
+define('TABLE_PASSWORD_RESETS', 'pw_resets');
 
 /*
 |--------------------------------------------------------------------------

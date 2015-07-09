@@ -1,0 +1,68 @@
+/* Asynctive Password Reset Stylesheet */
+
+/* Extra small screens */
+@media (max-width: 767px)
+{
+	main #pwreset-email
+	{
+		width: 200px;
+	}
+	
+	main #pwreset-username
+	{
+		width: 150px;
+	}
+	
+	main #pwreset-new-password
+	{
+		width: 200px;
+	}
+	
+	main #pwreset-confirm-password
+	{
+		width: 200px;
+	}
+}
+
+main label
+{
+	display: block;
+}
+
+.error
+{
+	padding-top: 5px;
+	color: #ff0000;
+}
+
+label.error
+{
+	display: inline-block;
+	margin-left: 20px;
+	font-weight: normal;
+}
+
+input.error
+{
+	display: inline-block;
+}
+
+#pwreset-email
+{
+	width: 350px;
+}
+
+#pwreset-username
+{
+	width: 200px;
+}
+
+#pwreset-new-password
+{
+	width: 250px;
+}
+
+#pwreset-confirm-password
+{
+	width: 250px;
+}

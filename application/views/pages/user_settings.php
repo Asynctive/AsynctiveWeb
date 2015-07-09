@@ -15,7 +15,7 @@ if($this->session->flashdata('verification_sent')): ?>
 			<label for="update-email">E-mail:</label>
 			<input id="update-email" name="update_email" class="form-control" type="text" value="<?php echo $user_email ?>" placeholder="E-mail">
 			<?php echo form_error('update_email') ?>
-			<?php if(!$email_verified) echo '<a href="/settings/resend_verification" style="display: block">Resend Verification E-mail</a>' ?>
+			<?php if(!$email_verified) echo '<a href="/settings/resend_verification" style="display: inline-block">Resend Verification E-mail</a>' ?>
 		</div>
 		
 		<div class="form-group">
