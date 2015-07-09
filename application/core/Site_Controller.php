@@ -11,13 +11,6 @@ class Site_Controller extends AS_Controller
 	{
 		parent::__construct();
 		
-		if (isset($_SESSION['user_id']))
-		{
-			$role_results = $this->user_model->getRoles($_SESSION['user_id']);
-			foreach($role_results as $role)
-				$this->userRoles[] = $role->key_name;
-		}
-		
 		$this->_checkSiteStatus();
 		
 		$this->data['page'] = $page;

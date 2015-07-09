@@ -7,6 +7,7 @@ class AS_Controller extends CI_Controller
 {
 	protected $data = array();
 	protected $user;			// Currently logged in user record
+	protected $userRoles;
 	
 	public function __construct()
 	{
@@ -16,6 +17,13 @@ class AS_Controller extends CI_Controller
 		$this->load->helper('url');
 		$this->load->model(array('user_model', 'user_role_assoc_model', 'user_ban_model'));
 		$this->load->library(array('session', 'roles'));
+		
+		if (isset($_SESSION['user_id']))
+		{
+			$role_results = $this->user_model->getRoles($_SESSION['user_id']);
+			foreach($role_results as $role)
+				$this->userRoles[] = $role->key_name;
+		}
 	}
 	
 	public function logout()

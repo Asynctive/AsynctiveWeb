@@ -10,6 +10,18 @@ class Admin_Controller extends AS_Controller
 		parent::__construct();
 		
 		$this->data['page'] = $page;
+		
+		// Check if they have access
+		if (isset($_SESSION['user_id']))
+		{
+			if (!$this->roles->hasPermission($this->userRoles, PERMISSION_VIEW_ADMIN_PANEL))
+				show_error('You do not have access to this area');
+		}
+		
+		else if ($page != 'admin_login')
+		{
+			redirect('/admin', 200);
+		}
 	}
 	
 	/**
