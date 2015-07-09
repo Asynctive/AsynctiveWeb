@@ -28,7 +28,6 @@ class AS_Controller extends CI_Controller
 		session_destroy();
 		if (substr(uri_string(), 0, 5) == admin)
 			redirect('/admin', 200);
-		
 		else
 			redirect('/', 200);
 	}

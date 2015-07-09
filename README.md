@@ -71,7 +71,7 @@ Roles can be defined in: application/library/Roles.php
 
 
 ### Base Controllers
-**AS_Controller**: Base page controller. Handles loading configuration settings and the apropiate libraries and models required for the system to work.
+**AS_Controller**: Base page controller. Handles loading configuration settings and the appropiate libraries and models required for the system to work.
 It also automatically retrieves any logged in user's roles.
 
 **Site_Controller**: Regular page controller. Checks site status, checks for and authenticates logins. Extends AS_Controller

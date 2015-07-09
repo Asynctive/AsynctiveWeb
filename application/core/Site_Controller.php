@@ -21,7 +21,7 @@ class Site_Controller extends AS_Controller
 		$success = (is_array($login_user) && array_key_exists('success', $login_user) && $login_user['success']);
 		if ($success)
 		{
-			$this->_getUserRoles($login_user['data']->id);
+			$this->_getUserRoles($login_user['data']->id);		// Get roles since the constructor didn't ($_SESSION['user_id'] wasn't set)
 			$_SESSION['logged_in'] = TRUE;
 			$_SESSION['user_id'] = $login_user['data']->id;
 			$_SESSION['username'] = $login_user['data']->username;
