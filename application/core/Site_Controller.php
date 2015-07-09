@@ -5,9 +5,18 @@
  */
 class Site_Controller extends AS_Controller
 {
+	protected $userRoles = array();
+	
 	public function __construct($page)
 	{
 		parent::__construct();
+		
+		if (isset($_SESSION['user_id']))
+		{
+			$role_results = $this->user_model->getRoles($_SESSION['user_id']);
+			foreach($role_results as $role)
+				$this->userRoles[] = $role->key_name;
+		}
 		
 		$this->_checkSiteStatus();
 		
@@ -48,10 +57,6 @@ class Site_Controller extends AS_Controller
 				);
 			}
 			
-			$role_results = $this->user_model->getRoles($_SESSION['user_id']);
-			$roles = array();
-			foreach($role_results as $role)
-				$roles[] = $role->key_name;
 		}
 	}
 		
@@ -101,7 +106,7 @@ class Site_Controller extends AS_Controller
 		if (file_exists($this->config->item('controller_path') . 'Setup.php') && ENVIRONMENT == 'production')
 			redirect('/setup', 200);
 		
-		else if ($this->config->item('site_offline'))
+		else if ($this->config->item('offline_mode') && !$this->roles->hasPermission($this->userRoles, PERMISSION_VIEW_OFFLINE_SITE))
 			show_error('Website is offline', 200);
 	}
 }

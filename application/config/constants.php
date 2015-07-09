@@ -131,6 +131,7 @@ define('PERMISSION_DELETE_ROLE', 21);
 define('PERMISSION_CHANGE_USER_ROLE', 22);
 define('PERMISSION_BAN_USER', 23);
 define('PERMISSION_VIEW_OFFLINE_SITE', 24);
+define('PERMISSION_BYPASS_PAYMENT', 25);		// For testing purposes
 
 /*
 |--------------------------------------------------------------------------
