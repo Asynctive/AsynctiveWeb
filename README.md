@@ -31,7 +31,11 @@ when done.
 The permissions system will store roles and user-role associations in the database. The permissions 
 themselves will be hard-coded into an array within application/library/Roles.php. This was decided 
 because the system will be quite small, and the only person who will be making changes to it will 
-be the head coder(s). Constants can be reviewed in application/config/constants.php
+be the head coder(s). 
+
+Permission constants can be reviewed in: application/config/constants.php
+
+Roles can be defined in: application/library/Roles.php
 
 #### Available Permissions:
 	PERMISSION_LOGIN
@@ -58,9 +62,18 @@ be the head coder(s). Constants can be reviewed in application/config/constants.
 	PERMISSION_EDIT_ROLE
 	PERMISSION_DELETE_ROLE
 	PERMISSION_BAN_USER
+	PERMISSION_VIEW_OFFLINE_SITE
 	
 #### Available Roles:
 	ROLE_SUPER_ADMIN
 	ROLE_ADMIN
 	ROLE_USER
-	ROLE_BANNED
+
+
+### Base Controllers
+**AS_Controller**: Base page controller. Handles loading configuration settings and the apropiate libraries and models required for the system to work.
+It also automatically retrieves any logged in user's roles.
+
+**Site_Controller**: Regular page controller. Checks site status, checks for and authenticates logins. Extends AS_Controller
+
+**Admin_Controller**: Admin page controller. Checks for and authenticates logins while checking for required permissions. Extends AS_Controller

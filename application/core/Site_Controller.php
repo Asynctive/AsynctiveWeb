@@ -16,17 +16,20 @@ class Site_Controller extends AS_Controller
 		$this->data['page'] = $page;
 		$this->data['title'] = $this->_generateTitle($page);
 		
-		$login = $this->_checkForLogin();
+		$login_user = $this->_checkForLoginAttempt();
 		// Log them in
-		if ($login === TRUE)
+		$success = (is_array($login_user) && array_key_exists('success', $login_user) && $login_user['success']);
+		if ($success)
 		{
+			$this->_getUserRoles($login_user['data']->id);
 			$_SESSION['logged_in'] = TRUE;
-			$_SESSION['user_id'] = $this->user->id;
-			$_SESSION['username'] = $this->user->username;
-			$_SESSION['email_verified'] = $this->user->email_verified;
+			$_SESSION['user_id'] = $login_user['data']->id;
+			$_SESSION['username'] = $login_user['data']->username;
+			$_SESSION['email_verified'] = $login_user['data']->email_verified;
 		}
 		
-		else if ($login === FALSE)
+		// null means no login attempt
+		else if ($login_user !== null)
 		{
 			$this->data['login_failed'] = TRUE;
 		}

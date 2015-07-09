@@ -13,44 +13,40 @@ class Login extends Admin_Controller
 	
 	public function index()
 	{
-		if (!empty($_POST))
+		$login_user = $this->_checkForLoginAttempt();
+		$success = (is_array($login_user) && array_key_exists('success', $login_user) && $login_user['success']);
+		if ($success)
 		{
-			$username = $this->input->post('username');
-			$password = $this->input->post('password');
+			$this->_getUserRoles($login_user['data']->id);		// Get roles since the constructor didn't ($_SESSION['user_id'] wasn't set)
 			
-			$record = $this->user_model->getUserByUsername($username);
-			if ($record !== FALSE && password_verify($password, $record->password))
+			// Check if banned
+			if ($this->user_ban_model->getActiveByUserId($login_user['data']->id))
 			{
-				$role_results = $this->user_model->getRoles($record->id);
-				foreach($role_results as $role)
-					$this->userRoles[] = $role->key_name;
-				
-				if ($this->roles->hasPermission($this->userRoles, PERMISSION_VIEW_ADMIN_PANEL))
-				{
-					$_SESSION['user_id'] = $record->id;
-					$_SESSION['username'] = $record->username;
-					redirect('/admin/main', 200);
-				}
-				else
-				{
-					$this->data['username'] = $username; 
-					$this->data['access_denied'] = TRUE;
-				}
+				$this->data['login_failure_message'] = 'Account is banned';
 			}
+			
+			else if ($this->roles->hasPermission($this->userRoles, PERMISSION_VIEW_OFFLINE_SITE))
+			{
+				$_SESSION['user_id'] = $login_user['data']->id;
+				$_SESSION['username'] = $login_user['data']->username;
+				$_SESSION['email_verified'] = $login_user['data']->email_verified;
+				redirect('/admin/main', 200);
+			}
+			
 			else
 			{
-				$this->data['username'] = $username; 
-				$this->data['login_failed'] = TRUE;
+				$this->data['login_failure_message'] = 'Access denied';
 			}
 		}
 		
+		// null means no login attempt
+		else if ($login_user !== null)
+		{
+			$this->data['login_failure_message'] = 'Username and or password did not match';
+		}
+		
+		$this->data['username'] = $this->input->post('login_username');
 		$this->_render('admin/login.php');
 
-	}
-	
-	public function logout()
-	{
-		session_destroy();
-		redirect('/admin', 200);
 	}
 }

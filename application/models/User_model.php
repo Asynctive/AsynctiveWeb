@@ -111,7 +111,7 @@ class User_model extends CI_Model
 	 * Gets the roles a user is in
 	 * @return array
 	 */
-	public function getRoles($user_id)
+	public function getRolesByUserId($user_id)
 	{
 		$this->db->select('role_id, key_name')
 				 ->from(TABLE_USERS)
