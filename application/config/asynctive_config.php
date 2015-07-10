@@ -27,6 +27,11 @@ $config['site_address'] = 'http://localhost';
 $config['verify_email_sender'] = 'verify@asynctive.com';
 
 /**
+ * The e-mail address password reset e-mails are sent from
+ */
+$config['password_reset_sender'] = 'pwreset@asynctive.com';
+
+/**
  * Password reset expire time limit
  * In seconds
  */

@@ -18,6 +18,7 @@ class PWReset extends Site_Controller
 		
 		$this->load->library('form_validation');
 		
+		// Request form
 		if ($id == null)
 		{
 			if (empty($_POST))
@@ -28,14 +29,14 @@ class PWReset extends Site_Controller
 			{
 				$username = trim($this->input->post('pwreset_username'));
 				$email = trim($this->input->post('pwreset_email'));
-				$record = FALSE;
+				$user_record = FALSE;
 				if ($username !== '')
-					$record = $this->user_model->getUserByUsername($username);
+					$user_record = $this->user_model->getUserByUsername($username);
 				
 				else if ($email !== '')
-					$record = $this->user_model->getUserByEmail($email);
+					$user_record = $this->user_model->getUserByEmail($email);
 				
-				if ($record === FALSE)
+				if ($user_record === FALSE)
 				{
 					$this->data['reset_error'] = 'Sorry but a valid user was not found';
 				}
@@ -48,7 +49,7 @@ class PWReset extends Site_Controller
 					$this->load->helper('uuid');
 					$data = array(
 						'id' => generateUUIDv4(),
-						'user_id' => $record->id,
+						'user_id' => $user_record->id,
 						'code' => generateRandomHexString(8),
 						'remote_ip' => $this->input->ip_address(),
 						'created' => time(),
@@ -56,23 +57,23 @@ class PWReset extends Site_Controller
 					);
 					
 					$this->db->trans_start();
-					$this->password_reset_model->deactivateResetsByUserId($record->id);
+					$this->password_reset_model->deactivateResetsByUserId($user_record->id);
 					$this->password_reset_model->createReset($data);
 					$this->db->trans_complete();
 					
 					if ($this->db->trans_status() == TRUE)
 					{
-						// Send e-mail
-						$this->load->library('email');
+						$this->_sendResetEmail($data, $user_record);
 											
 						$this->data['reset_sent'] = TRUE;
-						$this->data['reset_email'] = $record->email;
+						$this->data['reset_email'] = $user_record->email;
 					}
 				}
 				
 			}
 		}
 		
+		// Reset form
 		else
 		{
 			$this->load->model('password_reset_model');
@@ -110,12 +111,40 @@ class PWReset extends Site_Controller
 						$this->db->trans_complete();
 						
 						if ($this->db->trans_status() == TRUE)
+						{
+							$this->_sendStatusEmail($record->email);
 							$this->data['reset_complete'] = TRUE;
+						}
 					}
 				}
 			}
 		}
 		
 		$this->_render('pages/pwreset.php');
+	}
+
+	protected function _sendResetEmail($reset, $user)
+	{
+		$this->load->library('email');
+		$this->email->from($this->config->item('password_reset_sender'));
+		$this->email->to($user->email);
+		$this->email->subject('Password Reset Request');
+		$message = '<html><body><a href="' . $this->config->item('site_address') . $reset['id'] . '/' . $reset['code'] . '">Click here</a> to reset your password for' .
+					" your Asynctive account '$user->username'<br><br>If you did not request this, simply ignore it." .
+				   '<br>Request made from: ' . $reset['remote_ip'] .
+				   '</body></html>';
+		$this->email->message($message);
+		$this->email->send();
+	}
+	
+	protected function _sendStatusEmail($email)
+	{
+		$this->load->library('email');
+		$this->email->from($this->config->item('password_reset_sender'));
+		$this->email->to($email);
+		$this->email->subject('Password Has Been Reset');
+		$message = '<html><body>The password to your Asynctive account has been reset</body></html>';
+		$this->email->message($message);
+		$this->email->send();
 	}
 }

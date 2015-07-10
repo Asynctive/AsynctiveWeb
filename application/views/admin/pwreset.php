@@ -2,8 +2,10 @@
 
 <?php if(isset($reset_sent)): ?>
 <p>A reset e-mail has been sent</p>
+<p><a href="/admin">Go back</a></p>
 <?php elseif(isset($reset_complete)): ?>
 <p class="success">Password updated successfully</p>
+<p><a href="/admin">Go back</a></p>
 <?php elseif(isset($resetting)): ?>
 <form id="resetForm" class="cmxform" method="POST">
 	<div class="form-group">

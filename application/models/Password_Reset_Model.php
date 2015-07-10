@@ -20,7 +20,8 @@ class Password_Reset_Model extends CI_Model
 	{
 		$this->db->select('*')
 				 ->from(TABLE_PASSWORD_RESETS)
-				 ->where('id', $id)
+				 ->join(TABLE_USERS, TABLE_PASSWORD_RESETS . '.user_id = ' . TABLE_USERS . '.id')
+				 ->where(TABLE_PASSWORD_RESETS . '.id', $id)
 				 ->where('code', $code)
 				 ->where('expires >= ' . time())
 				 ->limit(1);

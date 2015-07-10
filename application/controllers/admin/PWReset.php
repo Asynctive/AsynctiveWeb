@@ -39,6 +39,7 @@ class PWReset extends Admin_Controller
 							'id' => generateUUIDv4(),
 							'user_id' => $record->id,
 							'code' => generateRandomHexString(8),
+							'remote_ip' => $this->input->ip_address(),
 							'created' => time(),
 							'expires' => time() + $this->config->item('password_reset_expire_time')
 						);
@@ -53,6 +54,7 @@ class PWReset extends Admin_Controller
 						{
 							$this->data['reset_sent'] = TRUE;
 							$this->data['reset_username'] = $username;
+							$this->_sendResetEmail($data, $record);
 						}
 					}
 					
@@ -110,6 +112,7 @@ class PWReset extends Admin_Controller
 						$this->db->trans_complete();
 						if ($this->db->trans_status())
 						{
+							$this->_sendStatusEmail($record->email);
 							$this->data['reset_complete'] = TRUE;
 						}
 					}
@@ -124,5 +127,30 @@ class PWReset extends Admin_Controller
 		}
 		
 		$this->_render('admin/pwreset.php');
+	}
+
+	protected function _sendResetEmail($reset, $user)
+	{
+		$this->load->library('email');
+		$this->email->from($this->config->item('password_reset_sender'));
+		$this->email->to($user->email);
+		$this->email->subject('Password Reset Request');
+		$message = '<html><body><a href="' . $this->config->item('site_address') . $reset['id'] . '/' . $reset['code'] . '">Click here</a> to reset your password for' .
+					" your Asynctive account '$user->username'<br><br>If you did not request this, simply ignore it." .
+				   '<br>Request made from: ' . $reset['remote_ip'] .
+				   '</body></html>';
+		$this->email->message($message);
+		$this->email->send();
+	}
+	
+	protected function _sendStatusEmail($email)
+	{
+		$this->load->library('email');
+		$this->email->from($this->config->item('password_reset_sender'));
+		$this->email->to($email);
+		$this->email->subject('Password Has Been Reset');
+		$message = '<html><body>The password to your Asynctive account has been reset</body></html>';
+		$this->email->message($message);
+		$this->email->send();
 	}
 }
