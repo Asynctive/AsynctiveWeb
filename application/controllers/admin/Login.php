@@ -55,4 +55,9 @@ class Login extends Admin_Controller
 		$this->_render('admin/login.php');
 
 	}
+
+	public function main()
+	{
+		$this->_render('admin/main.php');
+	}
 }
