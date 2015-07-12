@@ -18,13 +18,23 @@
 		<script type="text/javascript" src="/js/admin/create_user.js"></script>
 		<?php elseif ($page == 'admin_pwreset'): ?>
 		<script type="text/javascript" src="/js/admin/pwreset.js"></script>
+		<?php elseif ($page == 'admin_view_articles'): ?>
+		<script type="text/javascript" src="/js/admin/view_articles.js"></script>
+		<?php elseif ($page == 'admin_create_article'): ?>
+		<script type="text/javascript" src="/js/admin/article_form.js"></script>
+		<?php elseif ($page == 'admin_view_categories'): ?>
+		<script type="text/javascript" src="/js/admin/view_news_categories.js"></script>
+		<?php elseif ($page == 'admin_create_category'): ?>
+		<script type="text/javascript" src="/js/admin/categories_form.js"></script>
 		<?php endif ?>
+		
+		<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
 	</head>
 	
 	<body>
 		<div class="container">
 			<header role="banner">
-				<img class="img-responsive" src="/images/header_logo.png" alt="">
+				<a href="/"><img class="img-responsive" src="/images/header_logo.png" style="border: 0" alt=""></a>
 				
 				<div class="row" style="width: 100%; height: 20px; background-color: #000000; border-radius: 25px; margin-left: 0">
 				</div>
@@ -58,3 +68,5 @@
 				</div>
 			</nav>
 			<?php endif ?>
+
+			<main>

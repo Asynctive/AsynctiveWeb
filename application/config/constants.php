@@ -98,6 +98,9 @@ define('TABLE_USER_ROLE_ASSOC', 'user_role_associations');
 define('TABLE_PENDING_EMAILS', 'pending_email_verifications');
 define('TABLE_USER_BANS', 'user_bans');
 define('TABLE_PASSWORD_RESETS', 'pw_resets');
+define('TABLE_NEWS_ARTICLES', 'news_articles');
+define('TABLE_NEWS_CATEGORIES', 'news_categories');
+define('TABLE_NEWS_CATEGORY_ASSOC', 'news_category_associations');
 
 /*
 |--------------------------------------------------------------------------

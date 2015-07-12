@@ -32,6 +32,7 @@ class Login extends Admin_Controller
 			// Has permission
 			else if ($this->roles->hasPermission($this->userRoles, PERMISSION_VIEW_OFFLINE_SITE))
 			{
+				$_SESSION['logged_in'] = TRUE;
 				$_SESSION['user_id'] = $login_user['data']->id;
 				$_SESSION['username'] = $login_user['data']->username;
 				$_SESSION['email_verified'] = $login_user['data']->email_verified;

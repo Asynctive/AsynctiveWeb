@@ -21,6 +21,7 @@ class AS_Controller extends CI_Controller
 		// If logged in
 		if (array_key_exists('user_id', $_SESSION))
 			$this->_getUserRoles($_SESSION['user_id']);
+
 	}
 	
 	public function logout()

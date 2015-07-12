@@ -26,6 +26,7 @@ when done.
 + [Bootstrap](http://getbootstrap.com/)
 + [jQuery](https://jquery.com/)
 + [jQuery Validation Plugin](http://jqueryvalidation.org/)
++ [NicEdit](http://nicedit.com)
 
 ### Permissions System
 The permissions system will store roles and user-role associations in the database. The permissions 
