@@ -3,11 +3,15 @@
 <?php if(isset($success_message)): ?>
 <p class="success"><?php echo $success_message ?></p>
 <?php else: ?>
-	
+
+<?php if(isset($update_message)): ?>
+<p class="success"><?php echo $update_message ?></p>
+<?php endif ?>
+
 <form id="articleForm" class="cmxform" method="POST">
 	<div class="form-group">
 		<label for="article-title">Title:</label>
-		<input id="article-title" name="article_title" type="text" class="form-control" value="<?php echo set_value('article_title') ?>" style="width: 350px">
+		<input id="article-title" name="article_title" type="text" class="form-control" value="<?php echo $article['title'] ?>" style="width: 350px">
 		<?php echo form_error('article_title') ?>
 	</div>
 	
@@ -19,7 +23,7 @@
 			foreach($categories as $cat)
 			{
 				echo "<option value=\"$cat->id\"";
-				if (isset($selected_categories) && in_array($cat->id, $selected_categories))
+				if (isset($article['categories']) && in_array($cat->id, $article['categories']))
 					echo ' selected="selected"';
 				 
 				echo ">$cat->name</option>";
@@ -30,7 +34,7 @@
 	
 	<div class="form-group">
 		<label for="article-content">Content:</label>
-		<textarea id="article-content" name="article_content" style="width: 100%; height: 200px"><?php echo set_value('article_content') ?></textarea>
+		<textarea id="article-content" name="article_content" style="width: 100%; height: 200px"><?php echo $article['content'] ?></textarea>
 		<?php echo form_error('article_content') ?>
 	</div>
 	
