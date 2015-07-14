@@ -3,8 +3,19 @@
  * Author: Andy Deveaux
  */
 $('document').ready(function() {
+	$('#search-start-date').datepicker({
+		onSelect: function(dateText, inst) {
+			var epoch = $.datepicker.formatDate('@', $(this).datepicker('getDate')) / 1000;
+			$('#search-date1').val(epoch);
+		}
+	});
 	
-	nicEditors.allTextAreas();
+	$('#search-end-date').datepicker({
+		onSelect: function(dateText, inst) {
+			var epoch = $.datepicker.formatDate('@', $(this).datepicker('getDate')) / 1000;
+			$('#search-date2').val(epoch);
+		}
+	});
 	
 	$('#createArticle').click(function() {
 		window.location.href = "/admin/news/articles/create";		

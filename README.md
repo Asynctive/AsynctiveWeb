@@ -39,7 +39,6 @@ Permission constants can be reviewed in: application/config/constants.php
 Roles can be defined in: application/library/Roles.php
 
 #### Available Permissions:
-	PERMISSION_LOGIN
 	PERMISSION_CREATE_NEWS_CATEGORY
 	PERMISSION_EDIT_NEWS_CATEGORY
 	PERMISSION_DELETE_NEWS_CATEGORY

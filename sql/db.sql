@@ -162,8 +162,6 @@ CREATE TABLE `software`(
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(200) NOT NULL UNIQUE,
     `desc` TEXT,
-    `meta_desc` VARCHAR(250),
-    `meta_keywords` VARCHAR(250),
     PRIMARY KEY(`id`)
 ) ENGINE=InnoDB;
 

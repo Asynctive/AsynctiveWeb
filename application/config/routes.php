@@ -58,3 +58,4 @@ $route['admin'] = 'admin/login';
 $route['admin/logout'] = 'admin/login/logout';
 $route['admin/pwreset/(:any)/(:any)'] = 'admin/pwreset/index/$1/$2';
 $route['admin/main'] = 'admin/login/main';
+$route['admin/news/articles/(:num)'] = 'admin/news/articles/index/$1';

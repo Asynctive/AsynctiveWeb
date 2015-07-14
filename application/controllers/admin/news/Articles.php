@@ -5,6 +5,8 @@
  */
 class Articles extends Admin_Controller
 {
+	private $ROWS_PER_PAGE = 20;
+	
 	public function __construct()
 	{
 		parent::__construct('admin_view_articles');
@@ -12,11 +14,70 @@ class Articles extends Admin_Controller
 		$this->load->model('news_article_model');		
 	}
 	
-	public function index()
+	public function index($page = 0)
 	{
 		$this->load->model('news_category_model');
 		
-		$articles = $this->news_article_model->getAll(10, 0);
+		$offset = (($page > 0) ? $page - 1 : 0) * $this->ROWS_PER_PAGE;
+		
+		$search_str = '';		// User's original query
+		$search = '';			// Parsed string
+		$sort = 'created';
+		$order = 'desc';
+		$creator = '';
+		$category = '';
+		$start_date = 0;
+		$end_date = time();
+		
+		
+		// Search feature
+		if (count($_GET) > 0)
+		{
+			$this->load->helper('search');
+			
+			if (array_key_exists('search_term', $_GET) && !empty($_GET['search_term']))
+			{
+				$search_str = trim($_GET['search_term']);
+				$search = $search_str;
+				$creator = str_replace('_', ' ', getSearchPrefixValue($search, 'user:'));
+				$category = str_replace('_', ' ', getSearchPrefixValue($search, 'category:'));
+				$search = trim($search);		// Delete any left over spaces
+			}
+			
+			if (array_key_exists('search_sort', $_GET))
+			{
+				// Restrict what field can be searched (prevent tampering)
+				$value = $_GET['search_sort'];
+				if ($value == 'created' || $value == 'title' || $value == 'updated')
+					$sort = $value;
+			}
+			
+			if (array_key_exists('search_order', $_GET))
+			{
+				// It's desc by default, so just check for asc
+				if ($_GET['search_order'] == 'asc')
+					$order = 'asc';
+			}
+			
+			if (array_key_exists('search_date1', $_GET) && !empty($_GET['search_date1']))
+			{
+				$start_date = (int)$_GET['search_date1'];
+			}
+			
+			if (array_key_exists('search_date2', $_GET) && !empty($_GET['search_date2']))
+			{
+				$end_date = (int)$_GET['search_date2'] + (60 * 60 * 24) - 1;
+			}
+		}
+		
+		$this->data['search'] = $search_str;
+		$this->data['sort'] = $sort;
+		$this->data['order'] = $order;
+		$this->data['start_date'] = $start_date;
+		$this->data['end_date'] = $end_date; 
+
+		$articles = $this->news_article_model->get($search, $sort, $order, $creator, $category, $start_date, $end_date, $this->ROWS_PER_PAGE, $offset);
+		
 		$category_records = $this->news_category_model->getAll();
 		// Make it single dimensional
 		$category_records_refined = array();
@@ -33,6 +94,17 @@ class Articles extends Admin_Controller
 					$article->categories[] = array('id' => $cat_id, 'name' => $category_records_refined[$cat_id]); 
 			}
 		}
+		
+		// Pagination
+		$this->load->library('pagination');
+		$config['base_url'] = '/admin/news/articles/';
+		$config['total_rows'] = $this->news_article_model->count($search, $creator, $category, $start_date, $end_date);
+		$config['use_page_numbers'] = TRUE;
+		$config['per_page'] = $this->ROWS_PER_PAGE;
+		$config['reuse_query_string'] = TRUE;
+		$config['num_tag_open'] = '<span style="padding: 5px">';
+		$config['num_tag_close'] = '</span>';
+		$this->pagination->initialize($config);
 		
 		$this->data['articles'] = $articles;
 		$this->_render('admin/view_articles.php');
@@ -112,6 +184,9 @@ class Articles extends Admin_Controller
 	{
 		if ($id === null || !$this->roles->hasPermission($this->userRoles, PERMISSION_EDIT_NEWS_ARTICLE))
 			redirect('/admin/news/articles', 200);
+		
+		$this->data['page'] = 'admin_edit_article';
+		$this->data['title'] = 'Edit Article';
 		
 		$article_record = $this->news_article_model->getById($id);
 		if ($article_record !== FALSE)
@@ -254,6 +329,8 @@ class Articles extends Admin_Controller
 	private function _makeDbCategoriesArray($selected_categories, $article_id)
 	{
 		$data = array();
+		if (empty($selected_categories))
+			return array();
 		foreach ($selected_categories as $category_id)
 		{
 			if ($category_id == '')
