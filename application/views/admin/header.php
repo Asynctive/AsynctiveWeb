@@ -32,6 +32,8 @@
 		<script type="text/javascript" src="/js/admin/view_news_categories.js"></script>
 		<?php elseif ($page == 'admin_create_category'): ?>
 		<script type="text/javascript" src="/js/admin/categories_form.js"></script>
+		<?php elseif ($page == 'admin_view_users'): ?>
+		<script type="text/javascript" src="/js/admin/view_users.js"></script>
 		<?php endif ?>
 	</head>
 	

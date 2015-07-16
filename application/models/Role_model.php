@@ -6,6 +6,16 @@
 class Role_model extends CI_Model
 {
 	/**
+	 * Gets all of the user roles
+	 * @return array
+	 */
+	public function getAll()
+	{
+		$query = $this->db->get(TABLE_ROLES);
+		return $query->result();
+	}
+	
+	/**
 	 * Creates a new role
 	 * @return int
 	 */

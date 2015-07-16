@@ -1,33 +1,33 @@
 /*
- * Asynctive Web View Articles Script
+ * Asynctive Web Admin View Users
  * Author: Andy Deveaux
  */
 $('document').ready(function() {
 	$('#search-start-date').datepicker({
 		onSelect: function(dateText, inst) {
 			var epoch = $.datepicker.formatDate('@', $(this).datepicker('getDate')) / 1000;
-			$('#search-date1').val(epoch);
+			$('#start-date').val(epoch);
 		}
 	});
 	
 	$('#search-end-date').datepicker({
-		onSelect: function(dateText, inst) {
+		onSelect: function(dateText, int) {
 			var epoch = $.datepicker.formatDate('@', $(this).datepicker('getDate')) / 1000;
-			$('#search-date2').val(epoch);
+			$('#end-date').val(epoch);
 		}
 	});
 	
-	$('#createArticle').click(function() {
-		window.location.href = "/admin/news/articles/create";		
+	$('#createButton').click(function() {
+		window.location.href = '/admin/users/create';
 	});
 	
-	$('#deleteArticles').click(function() {
+	$('#deleteButton').click(function() {
 		var ids = [];
 		$("input:checkbox[id='chk-delete']:checked").each(function() {
 			ids.push(this.value);
 		});
 		
-		if (ids.length == 0 || !confirm('Are you sure you want to delete these articles?'))
+		if (ids.length == 0 || !confirm('Are you sure you want to delete these users?'))
 			return;
 			
 		$("p[id='error-msg']").hide();			
@@ -50,11 +50,5 @@ $('document').ready(function() {
 				$("p[id='error-msg']").show();			
 			}
 		});
-	});
-	
-	$("button[id^='btn-edit-']").click(function() {
-		var id = this.id.split('-')[2];
-		if (id !== null)
-			window.location.href = '/admin/news/articles/edit/' + id;
 	});
 });

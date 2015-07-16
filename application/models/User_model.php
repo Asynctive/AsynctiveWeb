@@ -17,6 +17,43 @@ class User_model extends CI_Model
 	}
 	
 	/**
+	 * Searches for users by whatever fields are set
+	 * @param array
+	 * @param string
+	 * @param string
+	 * @param int
+	 * @param int
+	 */
+	public function search($search, $sort, $order, $limit = 10, $offset = 0)
+	{
+		$this->db->select('*')
+				 ->from(TABLE_USERS);
+				 
+		if (array_key_exists('term', $search) && $search['term'] != null)
+		{
+			$this->db->like('username', $search['term'])
+					 ->or_like('first_name', $search['term'])
+					 ->or_like('last_name', $search['term'])
+					 ->or_like('email', $search['term']);
+		}
+		
+		if (array_key_exists('role_id', $search) && $search['role_id'] != null)
+		{
+			$this->db->join(TABLE_USER_ROLE_ASSOC, TABLE_USER_ROLE_ASSOC . '.user_id = ' . TABLE_USERS . '.id')
+					 ->where(TABLE_USER_ROLE_ASSOC . '.role_id', $search['role_id']);
+		}
+		
+		if (array_key_exists('start_date', $search) && $search['start_date'] != null)
+			$this->db->where('created >= ' . $search['start_date']);
+		
+		if (array_key_exists('end_date', $search) && $search['end_date'] != null)
+			$this->db->where('created <= ' . $search['end_date']);
+		
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	/**
 	 * Gets a user id by name
 	 * @param string
 	 * @return int|bool
