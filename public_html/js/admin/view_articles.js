@@ -31,7 +31,7 @@ $('document').ready(function() {
 			return;
 			
 		$("p[id='error-msg']").hide();			
-		console.log('Delete categories: ' + ids);
+		console.log('Delete articles: ' + ids);
 		
 		$.post('/admin/news/articles/delete', {'article_ids[]': ids})
 		.done(function(data) {

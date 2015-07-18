@@ -170,4 +170,16 @@ class User_model extends CI_Model
 		$data['updated'] = time();
 		$this->db->update(TABLE_USERS, $data, "id = $id");
 	}
+	
+	/**
+	 * Deletes a bunch of users
+	 * @param array
+	 * @return int
+	 */
+	public function deleteByIds($ids)
+	{
+		$this->db->where_in('id', $ids);
+		$this->db->delete(TABLE_USERS);
+		return $this->db->affected_rows();
+	}
 }

@@ -186,6 +186,23 @@ class Users extends Admin_Controller
 	
 	public function delete()
 	{
+		if (!$this->roles->hasPermission($this->userRoles, PERMISSION_DELETE_USER))
+		{
+			echo '{"success": false, "message": "Access denied"}';
+			exit;
+		}
 		
+		$ids = $this->input->post('user_ids');
+		if (!empty($ids))
+		{
+			if ($this->user_model->deleteByIds($ids) > 0)
+				echo '{"success": true}';
+			else
+				echo '{"success": false, "message": "Delete failed"}';
+		}
+		else
+		{
+			echo '{"success": false, "message": "No items selected"}';
+		}
 	}
 }

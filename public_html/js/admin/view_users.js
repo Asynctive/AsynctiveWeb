@@ -31,9 +31,9 @@ $('document').ready(function() {
 			return;
 			
 		$("p[id='error-msg']").hide();			
-		console.log('Delete categories: ' + ids);
-		
-		$.post('/admin/news/articles/delete', {'article_ids[]': ids})
+		console.log('Delete users: ' + ids);
+					
+		$.post('/admin/users/delete', {'user_ids[]': ids})
 		.done(function(data) {
 			console.log(data);
 			var json = $.parseJSON(data);

@@ -1,12 +1,13 @@
 <h3>View Users</h3>
 
+<p id="error-msg" class="error"></p>
+
 <div>
 	<button id="createButton" class="btn btn-primary">Create</button>
 	<button id="deleteButton" class="btn btn-primary" style="margin-left: 50px">Delete</button>
 </div>
 
 <br>
-
 <form method="GET" class="form-inline">
 	<fieldset>
 		<legend>Search</legend>
@@ -73,7 +74,7 @@
 	
 	<tbody>
 		<?php foreach($users as $row): ?>
-		<tr>
+		<tr id="row-<?php echo $row->id ?>">
 			<td><input id="chk-delete" type="checkbox" class="checkbox" value="<?php echo $row->id ?>"></td>
 			<td><a href="/admin/users/edit/<?php echo $row->id ?>"><?php echo $row->username ?></a></td>
 			<td><a href="mailto:<?php echo $row->email ?>"><?php echo $row->email ?></a></td>
